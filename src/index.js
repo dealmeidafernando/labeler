@@ -18,16 +18,24 @@ try {
 
   const octokit = github.getOctokit(token);
 
-  octokit.issues.addLabels({
-    ...github.context.repo,
-    issue_number: prNumber,
-    labels: label,
-  })
-  .then(() => {
-    console.log(
-      `These label were added automatically: ${label}`
-    );
-  });
+  labelsToAdd = [];
+  labelsToAdd.push(label);
+
+  if (labelsToAdd.length > 0) {
+    octokit.issues
+      .addLabels({
+        ...github.context.repo,
+        issue_number: prNumber,
+        labels: labelsToAdd,
+      })
+      .then(() => {
+        console.log(
+          `These labels were added automatically: ${labelsToAdd.join(", ")}.`
+        );
+      });
+  } else {
+    console.log("No label was added.");
+  }
 
 } catch (e) {
   core.setFailed(e.message);
