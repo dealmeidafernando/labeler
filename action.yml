@@ -1,0 +1,14 @@
+name: 'Labeler'
+description: 'Set label when approved PR'
+
+inputs: # TODO: thinking inputs
+  repo-token:
+    description: "Repo GITHUB_TOKEN"
+    required: true
+  label:
+    description: "Label to set on PR"
+    required: true
+
+runs:
+  using: 'node12'
+  main: 'src/index.js'
