@@ -20,8 +20,8 @@ try {
 
   octokit.issues.addLabels({
     ...github.context.repo,
-    issu_number: prNumber,
-    labels: label,
+    issue_number: prNumber,
+    addLabels: label,
   })
   .then(() => {
     console.log(
