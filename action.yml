@@ -9,6 +9,10 @@ inputs: # TODO: thinking inputs
     description: "Label to set on PR"
     required: true
 
+branding:
+  icon: "check"
+  color: "yellow"
+
 runs:
   using: 'node12'
   main: 'src/index.js'
