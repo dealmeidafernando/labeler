@@ -21,7 +21,7 @@ try {
   octokit.issues.addLabels({
     ...github.context.repo,
     issue_number: prNumber,
-    addLabels: label,
+    labels: label,
   })
   .then(() => {
     console.log(
