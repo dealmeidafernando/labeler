@@ -16,7 +16,7 @@ try {
   // Get injected inputs
   const repoToken = core.getInput('repo-token');
 
-  const octokit = new github.Github(repoToken);
+  const octokit = new github.GitHub(repoToken);
 
   octokit.issues.addLabels({
     ...github.context.repo,
