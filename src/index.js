@@ -22,11 +22,9 @@ try {
 
   const octokit = github.getOctokit(token);
 
-  // const currentUser = octokit.users.getByUsername();
+  const currentUser = contextPullRequest.head.user.login;
 
-  // if (membersTeam1[currentUser]) {}
-
-  if (team1 && membersTeam1.length > 0) {
+  if (team1 && membersTeam1[currentUser]) {
     labelsToAdd = [];
     labelsToAdd.push(labelTeam1);
     octokit.issues
