@@ -5,8 +5,14 @@ inputs: # TODO: thinking inputs
   repo-token:
     description: "Repo GITHUB_TOKEN"
     required: true
-  label:
-    description: "Label to set on PR"
+  team1:
+    description: "First team name"
+    required: true
+  membersTeam1:
+    description: "Names of first team"
+    required: true
+  labelTeam1:
+    description: "Names of first team"
     required: true
 
 branding:
