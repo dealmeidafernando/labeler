@@ -16,7 +16,7 @@ try {
 
   // Get injected inputs
   const token = core.getInput('repo-token');
-  const team1 = core.getInput('team1');
+  // const team1 = core.getInput('team1');
   const membersTeam1 = core.getInput('membersTeam1').split(DLM);
   const labelTeam1 = core.getInput('labelTeam1');
 
@@ -24,7 +24,7 @@ try {
 
   const currentUser = contextPullRequest.head.user.login;
 
-  if (team1 && membersTeam1[currentUser]) {
+  if (membersTeam1[currentUser]) {
     labelsToAdd = [];
     labelsToAdd.push(labelTeam1);
     octokit.issues
