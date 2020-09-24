@@ -24,7 +24,7 @@ try {
 
   const currentUser = contextPullRequest.head.user.login;
 
-  if (membersTeam1[currentUser]) {
+  if (membersTeam1.includes(currentUser)) {
     labelsToAdd = [];
     labelsToAdd.push(labelTeam1);
     octokit.issues
