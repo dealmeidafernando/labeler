@@ -5,7 +5,7 @@ const DLM = ";";
 
 try {
   const contextPullRequest = github.context.payload.pull_request;
-  console.log(contextPullRequest.head.user.login);
+  console.log(contextPullRequest);
   if (!contextPullRequest) {
     throw new Error (
       `This action can only be invoked in pull_request events. Otherwise the pull request can't be inferred.`
@@ -16,7 +16,6 @@ try {
 
   // Get injected inputs
   const token = core.getInput('repo-token');
-  // const team1 = core.getInput('team1');
   const membersTeam1 = core.getInput('membersTeam1').split(DLM);
   const labelTeam1 = core.getInput('labelTeam1');
 
@@ -41,23 +40,6 @@ try {
   } else {
     console.log("No label was added.");
   }
-
-  // if (labelsToAdd.length > 0) {
-  //   octokit.issues
-  //     .addLabels({
-  //       ...github.context.repo,
-  //       issue_number: prNumber,
-  //       labels: labelsToAdd,
-  //     })
-  //     .then(() => {
-  //       console.log(
-  //         `These labels were added automatically: ${labelsToAdd.join(", ")}.`
-  //       );
-  //     });
-  // } else {
-  //   console.log("No label was added.");
-  // }
-
 } catch (e) {
   core.setFailed(e.message);
 }

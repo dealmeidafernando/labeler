@@ -17,7 +17,6 @@ jobs:
       - name: Add label on pull request
         uses: dealmeidafernando/labeler
         with:
-          team1: thunderbolts
           membersTeam1: dealmeidafernando; dantunesd
           labelTeam1: labelName
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
