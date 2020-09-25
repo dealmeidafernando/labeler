@@ -6,6 +6,7 @@ const DLM = ";";
 try {
   const contextPullRequest = github.context.payload.pull_request;
   console.log(contextPullRequest);
+  console.log('==> USER', contextPullRequest.user.login);
   if (!contextPullRequest) {
     throw new Error (
       `This action can only be invoked in pull_request events. Otherwise the pull request can't be inferred.`
@@ -20,6 +21,9 @@ try {
   const labelTeam1 = core.getInput('labelTeam1');
 
   const octokit = github.getOctokit(token);
+
+  console.log(octokit.orgs.getMembershipForUser('catho', 'dealmeidafernando'));
+  console.log(octokit.repos.checkCollaborator('catho', 'billing_new-payment-gateway_job', 'dealmeidafernando'));
 
   const currentUser = contextPullRequest.head.user.login;
 
