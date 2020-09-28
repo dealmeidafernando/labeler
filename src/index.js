@@ -23,7 +23,7 @@ try {
   // const bla = octokit.teams.listChildInOrg('catho', '')
   // console.log('BLA ==>', bla);
   // octokit.teams.listMembersInOrg({ org: 'catho', team_slug: 'thunderbolts', }) .then(({ data }) => { console.log(data); })
-  const bla = await octokit.request('GET /repos/{owner}/{repo}/teams', {
+  const bla = octokit.request('GET /repos/{owner}/{repo}/teams', {
     owner: 'catho',
     repo: 'billing_debit-gateway_job'
   })
