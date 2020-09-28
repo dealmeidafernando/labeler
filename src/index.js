@@ -23,25 +23,6 @@ try {
   // const bla = octokit.teams.listChildInOrg('catho', '')
   // console.log('BLA ==>', bla);
   // octokit.teams.listMembersInOrg({ org: 'catho', team_slug: 'thunderbolts', }) .then(({ data }) => { console.log(data); })
-  octokit.teams
-    .getByName({
-    ...github.context.repo,
-    org: 'catho',
-    team_slug: 'thunderbolts',
-    })
-    .then(({ data }) => {
-      console.log('byName', data);
-    });
-
-  octokit.teams
-    .listChildInOrg({
-    ...github.context.repo,
-    org: 'catho',
-    team_slug: 'thunderbolts',
-    })
-    .then(({ data }) => {
-      console.log('childInOrg', data);
-    });
 
   const currentUser = contextPullRequest.user.login;
 
@@ -66,3 +47,21 @@ try {
   core.setFailed(e.message);
 }
 
+octokit.teams
+    .getByName({
+    ...github.context.repo,
+    org: 'catho',
+    team_slug: 'thunderbolts',
+    })
+    .then(({ data }) => {
+      console.log('byName', data);
+    });
+
+  octokit.teams
+    .listChildInOrg({
+    org: 'catho',
+    team_slug: 'thunderbolts',
+    })
+    .then(({ data }) => {
+      console.log('childInOrg', data);
+    });
