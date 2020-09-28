@@ -5,7 +5,7 @@ const DLM = ";";
 
 try {
   const contextPullRequest = github.context.payload.pull_request;
-  console.log(contextPullRequest);
+  // console.log(contextPullRequest);
   if (!contextPullRequest) {
     throw new Error (
       `This action can only be invoked in pull_request events. Otherwise the pull request can't be inferred.`
@@ -23,8 +23,25 @@ try {
   // const bla = octokit.teams.listChildInOrg('catho', '')
   // console.log('BLA ==>', bla);
   // octokit.teams.listMembersInOrg({ org: 'catho', team_slug: 'thunderbolts', }) .then(({ data }) => { console.log(data); })
-  octokit.teams.getByName({ org: 'catho', team_slug: 'thunderbolts', }) .then(({ data }) => { console.log('byName', data); });
-  octokit.teams.listChildInOrg({ org: 'catho', team_slug: 'thunderbolts', }) .then(({ data }) => { console.log('childInOrg', data); })
+  octokit.teams
+    .getByName({
+    ...github.context.repo,
+    org: 'catho',
+    team_slug: 'thunderbolts',
+    })
+    .then(({ data }) => {
+      console.log('byName', data);
+    });
+
+  octokit.teams
+    .listChildInOrg({
+    ...github.context.repo,
+    org: 'catho',
+    team_slug: 'thunderbolts',
+    })
+    .then(({ data }) => {
+      console.log('childInOrg', data);
+    });
 
   const currentUser = contextPullRequest.user.login;
 
