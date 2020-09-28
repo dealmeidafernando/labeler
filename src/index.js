@@ -20,10 +20,10 @@ try {
   const labelTeam1 = core.getInput('labelTeam1');
 
   const octokit = github.getOctokit(token);
-  const bla = octokit.issues.listEvents('catho', 'billing_debit-gateway_job', prNumber, 1, 10);
+  const bla = await octokit.issues.listEvents('catho', 'billing_debit-gateway_job', prNumber, 1, 10);
   console.log('BLA ==>', bla);
 
-  const bla2 = octokit.teams.listForAuthenticatedUser(1);
+  const bla2 = await octokit.teams.listForAuthenticatedUser(1);
   console.log('BLA ==>', bla2);
 
   const currentUser = contextPullRequest.user.login;
