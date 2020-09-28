@@ -23,13 +23,8 @@ try {
   // const bla = octokit.teams.listChildInOrg('catho', '')
   // console.log('BLA ==>', bla);
   // octokit.teams.listMembersInOrg({ org: 'catho', team_slug: 'thunderbolts', }) .then(({ data }) => { console.log(data); })
-  octokit.repos
-    .listTeams({
-      ...github.context.repo,
-    })
-    .then(({ data }) => {
-      console.log(data);
-    });
+  const bla = octokit.repos.listTeams({ ...github.context.repo });
+  console.log(bla);
 
   const currentUser = contextPullRequest.user.login;
 
