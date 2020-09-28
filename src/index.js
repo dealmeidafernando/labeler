@@ -23,9 +23,10 @@ try {
   // const bla = octokit.teams.listChildInOrg('catho', '')
   // console.log('BLA ==>', bla);
   // octokit.teams.listMembersInOrg({ org: 'catho', team_slug: 'thunderbolts', }) .then(({ data }) => { console.log(data); })
-  const bla = octokit.repos.listTeams({ ...github.context.repo }).then(() => {
-    console.log(bla);
-  });
+  const bla = await octokit.request('GET /repos/{owner}/{repo}/teams', {
+    owner: 'catho',
+    repo: 'billing_debit-gateway_job'
+  })
   console.log(bla);
 
   const currentUser = contextPullRequest.user.login;
