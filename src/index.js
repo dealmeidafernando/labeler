@@ -6,6 +6,7 @@ const DLM = ";";
 const getUser = () => {
   if (contextPullRequest.head.user.login === undefined) {
     return contextPullRequest.head.user.login;
+    console.log('new');
   }
   return contextPullRequest.user.login;
 }
@@ -27,9 +28,6 @@ try {
   const labelTeam1 = core.getInput('labelTeam1');
 
   const octokit = github.getOctokit(token);
-
-  console.log(octokit.orgs.getMembershipForUser('catho', 'dealmeidafernando'));
-  console.log(octokit.repos.checkCollaborator('catho', 'billing_new-payment-gateway_job', 'dealmeidafernando'));
 
   const currentUser = getUser;
 
