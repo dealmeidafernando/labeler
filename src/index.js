@@ -3,17 +3,9 @@ const github = require('@actions/github');
 
 const DLM = ";";
 
-const getUser = () => {
-  if (contextPullRequest.head.user.login === undefined) {
-    return contextPullRequest.head.user.login;
-    console.log('new');
-  }
-  return contextPullRequest.user.login;
-}
 try {
   const contextPullRequest = github.context.payload.pull_request;
   console.log(contextPullRequest);
-  console.log('==> USER', contextPullRequest.user.login);
   if (!contextPullRequest) {
     throw new Error (
       `This action can only be invoked in pull_request events. Otherwise the pull request can't be inferred.`
@@ -29,7 +21,7 @@ try {
 
   const octokit = github.getOctokit(token);
 
-  const currentUser = getUser;
+  const currentUser = contextPullRequest.user.login;
 
   if (membersTeam1.includes(currentUser)) {
     labelsToAdd = [];
