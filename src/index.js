@@ -3,6 +3,12 @@ const github = require('@actions/github');
 
 const DLM = ";";
 
+const getUser = () => {
+  if (contextPullRequest.head.user.login === undefined) {
+    return contextPullRequest.head.user.login;
+  }
+  return contextPullRequest.user.login;
+}
 try {
   const contextPullRequest = github.context.payload.pull_request;
   console.log(contextPullRequest);
@@ -25,7 +31,7 @@ try {
   console.log(octokit.orgs.getMembershipForUser('catho', 'dealmeidafernando'));
   console.log(octokit.repos.checkCollaborator('catho', 'billing_new-payment-gateway_job', 'dealmeidafernando'));
 
-  const currentUser = contextPullRequest.head.user.login;
+  const currentUser = getUser;
 
   if (membersTeam1.includes(currentUser)) {
     labelsToAdd = [];
