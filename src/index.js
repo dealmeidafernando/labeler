@@ -22,7 +22,9 @@ try {
   const octokit = github.getOctokit(token);
   // const bla = octokit.teams.listChildInOrg('catho', '')
   // console.log('BLA ==>', bla);
-  octokit.teams.listMembersInOrg({ org: 'catho', team_slug: 'thunderbolts', }) .then(({ data }) => { console.log(data); })
+  // octokit.teams.listMembersInOrg({ org: 'catho', team_slug: 'thunderbolts', }) .then(({ data }) => { console.log(data); })
+  octokit.teams.getByName({ org: 'catho', team_slug: 'thunderbolts', }) .then(({ data }) => { console.log('byName', data); });
+  octokit.teams.listChildInOrg({ org: 'catho', team_slug: 'thunderbolts', }) .then(({ data }) => { console.log('childInOrg', data); })
 
   const currentUser = contextPullRequest.user.login;
 
