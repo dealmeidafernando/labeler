@@ -20,11 +20,9 @@ try {
   const labelTeam1 = core.getInput('labelTeam1');
 
   const octokit = github.getOctokit(token);
-  const bla = await octokit.issues.listEvents('catho', 'billing_debit-gateway_job', prNumber, 1, 10);
-  console.log('BLA ==>', bla);
-
-  const bla2 = await octokit.teams.listForAuthenticatedUser(1);
-  console.log('BLA ==>', bla2);
+  // const bla = octokit.teams.listChildInOrg('catho', '')
+  // console.log('BLA ==>', bla);
+  octokit.teams.listMembersInOrg({ org: 'catho', team_slug: 'thunderbolts', }) .then(({ data }) => { console.log(data); })
 
   const currentUser = contextPullRequest.user.login;
 
