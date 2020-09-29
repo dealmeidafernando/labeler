@@ -44,7 +44,7 @@ try {
     name: 'thunderfighters'
   }
 
-  octokit.issues.getLabel(label);
+  octokit.issues.getLabel(label).then(({ data }) => { console.log(data); });
 
   const currentUser = contextPullRequest.user.login;
 
