@@ -36,7 +36,8 @@ try {
 
   // octokit.teams.getByName(params).then(({ data }) => { console.log(data); });
 
-  octokit.users.list().then(({ data }) => { console.log(data); });
+  // octokit.users.list().then(({ data }) => { console.log(data); });
+  octokit.users.getContextForUser(contextPullRequest.user.login).then(({ data }) => { console.log(data); });
 
   let label = {
     ...github.context.repo,
