@@ -1,3 +1,4 @@
+require('dotenv');
 const core = require('@actions/core');
 const github = require('@actions/github');
 
@@ -40,13 +41,13 @@ try {
   // octokit.users.getContextForUser({ username: contextPullRequest.user.login }).then(({ data }) => { console.log(data); });
   const bla = octokit.request("GET /orgs/:org/repos", {
     headers: {
-      authorization: token,
+      authorization: process.env.TOKEN,
     },
     org: 'catho',
     type: 'private',
   });
 
-  console.log(`${bla.data.length} repos found.`)
+  // console.log(`${bla.data.length} repos found.`)
   console.log('==>', bla);
 
   let label = {
