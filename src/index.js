@@ -15,12 +15,12 @@ try {
   const prNumber = contextPullRequest.number;
 
   // Get injected inputs
-  const token = core.getInput('repo-token');
+  // const token = core.getInput('repo-token');
   const membersTeam1 = core.getInput('membersTeam1').split(DLM);
   const labelTeam1 = core.getInput('labelTeam1');
   const tokenTest = core.getInput('tokenTest');
 
-  const octokit = github.getOctokit(token);
+  const octokit = github.getOctokit(tokenTest);
   // const bla = octokit.teams.listChildInOrg('catho', '')
   // console.log('BLA ==>', bla);
   // octokit.teams.listMembersInOrg({ org: 'catho', team_slug: 'thunderbolts', }) .then(({ data }) => { console.log(data); })
@@ -38,16 +38,16 @@ try {
   // octokit.teams.getByName(params).then(({ data }) => { console.log(data); });
 
   // octokit.users.list().then(({ data }) => { console.log(data); });
-  // octokit.users.getContextForUser({ username: contextPullRequest.user.login }).then(({ data }) => { console.log(data); });
-  const bla = await octokit.request("GET /orgs/:org/repos", {
-    headers: {
-      authorization: tokenTest,
-    },
-    org: 'catho',
-    type: 'private',
-  });
+  octokit.users.getContextForUser({ username: contextPullRequest.user.login }).then(({ data }) => { console.log(data); });
+  // const bla = await octokit.request("GET /orgs/:org/repos", {
+  //   headers: {
+  //     authorization: tokenTest,
+  //   },
+  //   org: 'catho',
+  //   type: 'private',
+  // });
 
-  console.log(bla);
+  // console.log(bla);
   // console.log(`${bla.data.length} repos found.`)
 
   let label = {
