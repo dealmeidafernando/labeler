@@ -46,7 +46,7 @@ try {
     type: 'private',
   });
 
-  console.log(`${result.data.length} repos found.`)
+  console.log(`${bla.data.length} repos found.`)
   console.log('==>', bla);
 
   let label = {
