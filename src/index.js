@@ -30,21 +30,24 @@ try {
   // })
   // console.log(bla);
 
-  let params = {
-    ...github.context.repo,
-    name: 'thunderfighters',
-    color: '7c0dc1',
-    description: 'team thunderfighters'
-  }
-
-  octokit.issues.createLabel(params);
-
   let label = {
     ...github.context.repo,
     name: 'thunderfighters'
   }
 
-  octokit.issues.getLabel(label).then(({ data }) => { console.log(data); });
+  const result = octokit.issues.getLabel(label);
+
+  if (!result.name === 'thunderfighters') {
+    let params = {
+      ...github.context.repo,
+      name: 'thunderfighters',
+      color: '7c0dc1',
+      description: 'team thunderfighters'
+    }
+    octokit.issues.createLabel(params);
+  } else {
+    console.log('No labels to add');
+  }
 
   const currentUser = contextPullRequest.user.login;
 
