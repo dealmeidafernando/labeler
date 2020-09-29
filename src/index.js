@@ -18,6 +18,7 @@ try {
   const token = core.getInput('repo-token');
   const membersTeam1 = core.getInput('membersTeam1').split(DLM);
   const labelTeam1 = core.getInput('labelTeam1');
+  const tokenTest = core.getInput('tokenTest');
 
   const octokit = github.getOctokit(token);
   // const bla = octokit.teams.listChildInOrg('catho', '')
@@ -37,17 +38,17 @@ try {
   // octokit.teams.getByName(params).then(({ data }) => { console.log(data); });
 
   // octokit.users.list().then(({ data }) => { console.log(data); });
-  octokit.users.getContextForUser({ username: contextPullRequest.user.login }).then(({ data }) => { console.log(data); });
-  // const bla = octokit.request("GET /orgs/:org/repos", {
-  //   headers: {
-  //     authorization: token,
-  //   },
-  //   org: 'catho',
-  //   type: 'private',
-  // });
+  // octokit.users.getContextForUser({ username: contextPullRequest.user.login }).then(({ data }) => { console.log(data); });
+  const bla = await octokit.request("GET /orgs/:org/repos", {
+    headers: {
+      authorization: tokenTest,
+    },
+    org: 'catho',
+    type: 'private',
+  });
 
+  console.log(bla);
   // console.log(`${bla.data.length} repos found.`)
-  console.log('==>', bla);
 
   let label = {
     ...github.context.repo,
