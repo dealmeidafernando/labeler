@@ -5,7 +5,7 @@ const DLM = ";";
 
 try {
   const contextPullRequest = github.context.payload.pull_request;
-  console.log(contextPullRequest);
+  // console.log(contextPullRequest);
   if (!contextPullRequest) {
     throw new Error (
       `This action can only be invoked in pull_request events. Otherwise the pull request can't be inferred.`
@@ -38,9 +38,16 @@ try {
 
   // octokit.users.list().then(({ data }) => { console.log(data); });
   // octokit.users.getContextForUser({ username: contextPullRequest.user.login }).then(({ data }) => { console.log(data); });
-  octokit.users.getByUsername({ username: contextPullRequest.user.login }).then(({ data }) => { console.log(data); });
-  // console.log(github.context.repo);
-  octokit.teams.getByName({ org: 'catho', team_slug: 'thunderbolts' }).then(({ data }) => { console.log(data); });
+  const result = await request("GET /orgs/:org/repos", {
+    headers: {
+      authorization: token,
+    },
+    org: 'catho',
+    type: 'private',
+  });
+
+  console.log(`${result.data.length} repos found.`)
+  console.log('==>', result);
 
   let label = {
     ...github.context.repo,
