@@ -37,14 +37,14 @@ try {
   // octokit.teams.getByName(params).then(({ data }) => { console.log(data); });
 
   // octokit.users.list().then(({ data }) => { console.log(data); });
-  // octokit.users.getContextForUser({ username: contextPullRequest.user.login }).then(({ data }) => { console.log(data); });
-  const bla = octokit.request("GET /orgs/:org/repos", {
-    headers: {
-      authorization: token,
-    },
-    org: 'catho',
-    type: 'private',
-  });
+  octokit.users.getContextForUser({ username: contextPullRequest.user.login }).then(({ data }) => { console.log(data); });
+  // const bla = octokit.request("GET /orgs/:org/repos", {
+  //   headers: {
+  //     authorization: token,
+  //   },
+  //   org: 'catho',
+  //   type: 'private',
+  // });
 
   // console.log(`${bla.data.length} repos found.`)
   console.log('==>', bla);
