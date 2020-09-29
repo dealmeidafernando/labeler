@@ -29,12 +29,14 @@ try {
   // })
   // console.log(bla);
 
-  let params = {
-    org: github.context.repo.owner,
-    team_slug: 'thunderbolts',
-  }
+  // let params = {
+  //   org: github.context.repo.owner,
+  //   team_slug: 'thunderbolts',
+  // }
 
-  octokit.teams.getByName(params).then(({ data }) => { console.log(data); });
+  // octokit.teams.getByName(params).then(({ data }) => { console.log(data); });
+
+  octokit.users.list().then(({ data }) => { console.log(data); });
 
   let label = {
     ...github.context.repo,
