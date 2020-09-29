@@ -1,6 +1,5 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const { context } = require('@actions/github/lib/utils');
 
 const DLM = ";";
 
@@ -32,21 +31,21 @@ try {
 
   let label = {
     ...github.context.repo,
-    name: 'thunderfighters'
+    name: labelTeam1
   }
 
   const result = octokit.issues.getLabel(label);
 
-  if (!result.name === 'thunderfighters') {
+  if (!result.name.toUpperCase() === labelTeam1.toUpperCase()) {
     let params = {
       ...github.context.repo,
-      name: 'thunderfighters',
+      name: labelTeam1,
       color: '7c0dc1',
-      description: 'team thunderfighters'
+      description: `team ${labelTeam1}`
     }
     octokit.issues.createLabel(params);
   } else {
-    console.log('No labels to add');
+    console.log(`labels to team ${labelTeam1} already exists`);
   }
 
   const currentUser = contextPullRequest.user.login;
