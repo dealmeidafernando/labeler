@@ -23,11 +23,19 @@ try {
   // const bla = octokit.teams.listChildInOrg('catho', '')
   // console.log('BLA ==>', bla);
   // octokit.teams.listMembersInOrg({ org: 'catho', team_slug: 'thunderbolts', }) .then(({ data }) => { console.log(data); })
-  const bla = octokit.request('GET /repos/{owner}/{repo}/teams', {
-    owner: 'catho',
-    repo: 'billing_debit-gateway_job'
-  })
-  console.log(bla);
+  // const bla = octokit.request('GET /repos/{owner}/{repo}/teams', {
+  //   owner: 'catho',
+  //   repo: 'billing_debit-gateway_job'
+  // })
+  // console.log(bla);
+
+  octokit.issues
+    .createLabel({
+      ...github.context.repo,
+      name: 'thunderfighters',
+      color: '#7c0dc1',
+      description: 'team thunderfighters',
+    })
 
   const currentUser = contextPullRequest.user.login;
 
