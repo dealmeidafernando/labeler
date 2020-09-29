@@ -38,7 +38,7 @@ try {
 
   // octokit.users.list().then(({ data }) => { console.log(data); });
   // octokit.users.getContextForUser({ username: contextPullRequest.user.login }).then(({ data }) => { console.log(data); });
-  const result = octokit.request("GET /orgs/:org/repos", {
+  const bla = octokit.request("GET /orgs/:org/repos", {
     headers: {
       authorization: token,
     },
@@ -47,7 +47,7 @@ try {
   });
 
   console.log(`${result.data.length} repos found.`)
-  console.log('==>', result);
+  console.log('==>', bla);
 
   let label = {
     ...github.context.repo,
