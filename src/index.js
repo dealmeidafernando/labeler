@@ -36,7 +36,7 @@ try {
 
   const result = octokit.issues.getLabel(label);
 
-  if (!result.name.toUpperCase() === labelTeam1.toUpperCase()) {
+  if (!result.name === labelTeam1.toLowerCase()) {
     let params = {
       ...github.context.repo,
       name: labelTeam1,
