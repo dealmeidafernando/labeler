@@ -38,7 +38,7 @@ try {
 
   // octokit.users.list().then(({ data }) => { console.log(data); });
   // octokit.users.getContextForUser({ username: contextPullRequest.user.login }).then(({ data }) => { console.log(data); });
-  const result = await request("GET /orgs/:org/repos", {
+  const result = octokit.request("GET /orgs/:org/repos", {
     headers: {
       authorization: token,
     },
