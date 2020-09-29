@@ -11,9 +11,6 @@ inputs: # TODO: thinking inputs
   labelTeam1:
     description: "Names of first team"
     required: true
-  tokenTest:
-    description: "test"
-    required: true
 
 branding:
   icon: "check"
