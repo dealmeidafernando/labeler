@@ -29,6 +29,8 @@ try {
   // })
   // console.log(bla);
 
+  octokit.teams.list(github.context.repo.owner).then(({ data }) => { console.log(data); });
+
   let label = {
     ...github.context.repo,
     name: labelTeam1
@@ -45,7 +47,7 @@ try {
     }
     octokit.issues.createLabel(params);
   } else {
-    console.log(`labels to team ${labelTeam1} already exists`);
+    console.log(`label to team ${labelTeam1} already exists`);
   }
 
   const currentUser = contextPullRequest.user.login;
