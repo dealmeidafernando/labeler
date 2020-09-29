@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const { context } = require('@actions/github/lib/utils');
 
 const DLM = ";";
 
@@ -29,13 +30,14 @@ try {
   // })
   // console.log(bla);
 
-  octokit.issues
-    .createLabel({
-      ...github.context.repo,
-      name: 'thunderfighters',
-      color: '#7c0dc1',
-      description: 'team thunderfighters',
-    })
+  let params = {
+    ...github.context.repo,
+    name: 'thunderfighters',
+    color: '7c0dc1',
+    description: 'team thunderfighters'
+  }
+
+  octokit.issues.createLabel(params)
 
   const currentUser = contextPullRequest.user.login;
 
