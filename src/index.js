@@ -29,7 +29,7 @@ try {
   // })
   // console.log(bla);
 
-  octokit.teams.list(github.context.repo.owner).then(({ data }) => { console.log(data); });
+  octokit.teams.list(...github.context).then(({ data }) => { console.log(data); });
 
   let label = {
     ...github.context.repo,
