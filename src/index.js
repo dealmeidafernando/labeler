@@ -37,7 +37,14 @@ try {
     description: 'team thunderfighters'
   }
 
-  octokit.issues.createLabel(params)
+  octokit.issues.createLabel(params);
+
+  let label = {
+    ...github.context.repo,
+    name: 'thunderfighters'
+  }
+
+  octokit.issues.getLabel(label);
 
   const currentUser = contextPullRequest.user.login;
 
