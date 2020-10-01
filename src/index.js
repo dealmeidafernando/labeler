@@ -1,4 +1,4 @@
-// const core = require('@actions/core');
+const core = require('@actions/core');
 const githubHelper = require('./githubHelper');
 const getInput = require('./getInput');
 const label = require('./label');
