@@ -25,9 +25,9 @@ try {
   const prAuthor = githubHelper.getPrAuthor();
   // const octokit = githubHelper.createClient(token);
 
-  label.existsLabel(labelTeam1, colorTeamOne);
+  label.createLabel(labelTeam1, colorTeamOne);
 
-  label.createTeamLabel(membersTeam1, prAuthor, labelTeamOne, prNumber);
+  label.addTeamLabel(membersTeam1, prAuthor, labelTeam1, prNumber);
   // let label = {
   //   ...github.context.repo,
   //   name: labelTeam1

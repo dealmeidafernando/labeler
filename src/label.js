@@ -6,7 +6,7 @@ const repositoryToken = 'repo-token';
 const token = getInput.getToken(repositoryToken);
 const octokit = githubHelper.createClient(token);
 
-function existsLabel(label, color) {
+function createTeamLabel(label, color) {
   let labelParams = {
     ...github.context.repo,
     name: label
@@ -29,7 +29,7 @@ function existsLabel(label, color) {
   }
 }
 
-function createTeamLabel(members, prAuthor, label, prNumber) {
+function addTeamLabel(members, prAuthor, label, prNumber) {
   if (members.includes(prAuthor)) {
     labelsToAdd = [];
     labelsToAdd.push(label);
@@ -49,4 +49,4 @@ function createTeamLabel(members, prAuthor, label, prNumber) {
   }
 }
 
-module.exports = { existsLabel, createTeamLabel };
+module.exports = { createTeamLabel, addTeamLabel };
