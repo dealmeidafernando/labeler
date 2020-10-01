@@ -1,8 +1,8 @@
-const core = require('@actions/core');
+// const core = require('@actions/core');
 const githubHelper = require('./githubHelper');
 const getInput = require('./getInput');
 const label = require('./label');
-// const github = require('@actions/github');
+const github = require('@actions/github');
 
 // const repositoryToken = 'repo-token';
 const teamOne = 'membersTeam1';
