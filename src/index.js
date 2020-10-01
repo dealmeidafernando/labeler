@@ -1,94 +1,72 @@
 const core = require('@actions/core');
-const github = require('@actions/github');
+const githubHelper = require('./githubHelper');
+const getInput = require('./getInput');
+const label = require('./label');
+// const github = require('@actions/github');
 
-const DLM = ";";
+// const repositoryToken = 'repo-token';
+const teamOne = 'membersTeam1';
+const labelTeamOne = 'labelTeam1';
+const colorTeamOne = '7c0dc1';
 
 try {
   const contextPullRequest = github.context.payload.pull_request;
-  // console.log(contextPullRequest);
   if (!contextPullRequest) {
     throw new Error (
       `This action can only be invoked in pull_request events. Otherwise the pull request can't be inferred.`
     );
   }
 
-  const prNumber = contextPullRequest.number;
+  const prNumber = githubHelper.getPrNumber();
 
-  // Get injected inputs
-  const token = core.getInput('repo-token');
-  const membersTeam1 = core.getInput('membersTeam1').split(DLM);
-  const labelTeam1 = core.getInput('labelTeam1');
+  // const token = getInput.getToken(repositoryToken);
+  const membersTeam1 = getInput.getTeam(teamOne);
+  const labelTeam1 = getInput.getTeam(labelTeamOne);
 
-  const octokit = github.getOctokit(token);
-  // const bla = octokit.teams.listChildInOrg('catho', '')
-  // console.log('BLA ==>', bla);
-  // octokit.teams.listMembersInOrg({ org: 'catho', team_slug: 'thunderbolts', }) .then(({ data }) => { console.log(data); })
-  // const bla = octokit.request('GET /repos/{owner}/{repo}/teams', {
-  //   owner: 'catho',
-  //   repo: 'billing_debit-gateway_job'
-  // })
-  // console.log(bla);
+  // const octokit = githubHelper.createClient(token);
 
-  // let params = {
-  //   org: github.context.repo.owner,
-  //   team_slug: 'thunderbolts',
+  label.existsLabel(labelTeam1, colorTeamOne);
+
+  label.createTeamLabel(membersTeam1, prAuthor, labelTeamOne, prNumber);
+  // let label = {
+  //   ...github.context.repo,
+  //   name: labelTeam1
   // }
 
-  // octokit.teams.getByName(params).then(({ data }) => { console.log(data); });
+  // const result = octokit.issues.getLabel(label);
 
-  // octokit.users.list().then(({ data }) => { console.log(data); });
-  octokit.users.getContextForUser({ username: contextPullRequest.user.login }).then(({ data }) => { console.log(data); });
-  // octokit.users.list();
-  // octokit.teams.getByName({ org: 'catho', team_slug: 'thunderbolts'}).then(({ data }) => { console.log(data); });
-  // const bla = await octokit.request("GET /orgs/:org/repos", {
-  //   headers: {
-  //     authorization: tokenTest,
-  //   },
-  //   org: 'catho',
-  //   type: 'private',
-  // });
+  // label.existsLabel(result, )
+  // if (!result.name === labelTeam1.toLowerCase()) {
+  //   let params = {
+  //     ...github.context.repo,
+  //     name: labelTeam1,
+  //     color: '7c0dc1',
+  //     description: `team ${labelTeam1}`
+  //   }
+  //   octokit.issues.createLabel(params);
+  // } else {
+  //   console.log(`label to team ${labelTeam1} already exists`);
+  // }
 
-  // console.log(bla);
-  // console.log(`${bla.data.length} repos found.`)
+  const prAuthor = githubHelper.getPrAuthor();
 
-  let label = {
-    ...github.context.repo,
-    name: labelTeam1
-  }
-
-  const result = octokit.issues.getLabel(label);
-
-  if (!result.name === labelTeam1.toLowerCase()) {
-    let params = {
-      ...github.context.repo,
-      name: labelTeam1,
-      color: '7c0dc1',
-      description: `team ${labelTeam1}`
-    }
-    octokit.issues.createLabel(params);
-  } else {
-    console.log(`label to team ${labelTeam1} already exists`);
-  }
-
-  const currentUser = contextPullRequest.user.login;
-
-  if (membersTeam1.includes(currentUser)) {
-    labelsToAdd = [];
-    labelsToAdd.push(labelTeam1);
-    octokit.issues
-      .addLabels({
-        ...github.context.repo,
-        issue_number: prNumber,
-        labels: labelsToAdd,
-      })
-      .then(() => {
-        console.log(
-          `These labels were added automatically: ${labelsToAdd.join(", ")}.`
-        );
-      });
-  } else {
-    console.log("No label was added.");
-  }
+  // if (membersTeam1.includes(prAuthor)) {
+  //   labelsToAdd = [];
+  //   labelsToAdd.push(labelTeam1);
+  //   octokit.issues
+  //     .addLabels({
+  //       ...github.context.repo,
+  //       issue_number: prNumber,
+  //       labels: labelsToAdd,
+  //     })
+  //     .then(() => {
+  //       console.log(
+  //         `These labels were added automatically: ${labelsToAdd.join(", ")}.`
+  //       );
+  //     });
+  // } else {
+  //   console.log("No label was added.");
+  // }
 } catch (e) {
   core.setFailed(e.message);
 }
