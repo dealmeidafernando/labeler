@@ -21,7 +21,7 @@ try {
 
   // const token = getInput.getToken(repositoryToken);
   const membersTeam1 = getInput.getTeam(teamOne);
-  const labelTeam1 = getInput.getTeam(labelTeamOne);
+  const labelTeam1 = getInput.getLabelTeam(labelTeamOne);
   const prAuthor = githubHelper.getPrAuthor();
   // const octokit = githubHelper.createClient(token);
 

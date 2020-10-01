@@ -32,7 +32,7 @@ function createTeamLabel(label, color) {
 function addTeamLabel(members, prAuthor, label, prNumber) {
   if (members.includes(prAuthor)) {
     labelsToAdd = [];
-    labelsToAdd.push(label[0]);
+    labelsToAdd.push(label);
     octokit.issues
       .addLabels({
         ...github.context.repo,
