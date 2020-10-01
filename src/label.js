@@ -14,7 +14,7 @@ function existsLabel(label, color) {
 
   const result = octokit.issues.getLabel(labelParams);
 
-  if (!result.name === label.toLowerCase()) {
+  if (!result.name === label) {
     let params = {
       ...github.context.repo,
       name: label,

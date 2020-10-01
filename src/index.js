@@ -22,7 +22,6 @@ try {
   // const token = getInput.getToken(repositoryToken);
   const membersTeam1 = getInput.getTeam(teamOne);
   const labelTeam1 = getInput.getTeam(labelTeamOne);
-
   // const octokit = githubHelper.createClient(token);
 
   label.existsLabel(labelTeam1, colorTeamOne);
