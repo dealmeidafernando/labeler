@@ -22,6 +22,7 @@ try {
   // const token = getInput.getToken(repositoryToken);
   const membersTeam1 = getInput.getTeam(teamOne);
   const labelTeam1 = getInput.getTeam(labelTeamOne);
+  const prAuthor = githubHelper.getPrAuthor();
   // const octokit = githubHelper.createClient(token);
 
   label.existsLabel(labelTeam1, colorTeamOne);
@@ -46,9 +47,6 @@ try {
   // } else {
   //   console.log(`label to team ${labelTeam1} already exists`);
   // }
-
-  const prAuthor = githubHelper.getPrAuthor();
-
   // if (membersTeam1.includes(prAuthor)) {
   //   labelsToAdd = [];
   //   labelsToAdd.push(labelTeam1);
