@@ -11,7 +11,7 @@ function getTeam(team) {
 }
 
 function getLabelTeam(label) {
-  return core.getInput(label).toLowerCase();
+  return core.getInput(label);
 }
 
 module.exports = { getToken, getTeam, getLabelTeam }
