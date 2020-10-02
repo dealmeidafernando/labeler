@@ -1,12 +1,15 @@
 name: 'Labeler'
 description: 'Set label when approved PR'
 
-inputs: # TODO: thinking inputs
+inputs:
   repo-token:
     description: "Repo GITHUB_TOKEN"
     required: true
-  label:
-    description: "Label to set on PR"
+  membersTeam1:
+    description: "Names of first team"
+    required: true
+  labelTeam1:
+    description: "Names of first team"
     required: true
 
 branding:

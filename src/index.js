@@ -1,43 +1,23 @@
 const core = require('@actions/core');
-const github = require('@actions/github');
+const githubHelper = require('./githubHelper');
+const getInput = require('./getInput');
+const label = require('./label');
+
+const teamOne = 'membersTeam1';
+const labelTeamOne = 'labelTeam1';
+const colorTeamOne = '7c0dc1';
 
 try {
-  const contextPullRequest = github.context.payload.pull_request;
-  console.log(contextPullRequest);
-  if (!contextPullRequest) {
-    throw new Error (
-      `This action can only be invoked in pull_request events. Otherwise the pull request can't be inferred.`
-    );
-  }
+  githubHelper.validateContext();
 
-  const prNumber = contextPullRequest.number;
-  const label = core.getInput('label')
+  const prNumber = githubHelper.getPrNumber();
 
-  // Get injected inputs
-  const token = core.getInput('repo-token');
+  const membersTeam1 = getInput.getTeam(teamOne);
+  const labelTeam1 = getInput.getLabelTeam(labelTeamOne);
+  const prAuthor = githubHelper.getPrAuthor();
 
-  const octokit = github.getOctokit(token);
-
-  labelsToAdd = [];
-  labelsToAdd.push(label);
-
-  if (labelsToAdd.length > 0) {
-    octokit.issues
-      .addLabels({
-        ...github.context.repo,
-        issue_number: prNumber,
-        labels: labelsToAdd,
-      })
-      .then(() => {
-        console.log(
-          `These labels were added automatically: ${labelsToAdd.join(", ")}.`
-        );
-      });
-  } else {
-    console.log("No label was added.");
-  }
-
+  label.createTeamLabel(labelTeam1, colorTeamOne);
+  label.addTeamLabel(membersTeam1, prAuthor, labelTeam1, prNumber);
 } catch (e) {
   core.setFailed(e.message);
 }
-
