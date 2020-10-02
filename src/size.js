@@ -1,11 +1,11 @@
 const { context } = require("@actions/github/lib/utils");
 
-const githubHelper = require('./githubHelper');
-const getInput = require('./getInput');
+// const githubHelper = require('./githubHelper');
+// const getInput = require('./getInput');
 
-const repositoryToken = 'repo-token';
-const token = getInput.getToken(repositoryToken);
-const octokit = githubHelper.createClient(token);
+// const repositoryToken = 'repo-token';
+// const token = getInput.getToken(repositoryToken);
+// const octokit = githubHelper.createClient(token);
 
 
 const label = {
@@ -58,7 +58,10 @@ async function size() {
   const { number } = pullRequest;
   // let { additions, deletions } = pullRequest;
 
-  const res = await octokit.pulls.listFiles({ owner, repo, number });
+  const res = await context.github.pullRequests.listFiles({owner, repo, number})
+
+  // const res = await octokit.pulls.listFiles({ owner, repo, number });
+  console.log('PULL =>', pullRequest);
   console.log(res);
 }
 
