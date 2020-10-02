@@ -1,6 +1,7 @@
 const { context } = require("@actions/github/lib/utils");
 
 const githubHelper = require('./githubHelper');
+const getInput = require('./getInput');
 
 const repositoryToken = 'repo-token';
 const token = getInput.getToken(repositoryToken);
