@@ -44,6 +44,11 @@
 //   }
 // }
 
-// function size() {
+// async function size() {
 //   const pullRequest = context.payload.pull_request;
+//   const { owner: { login: owner }, name: repo } = pullRequest.base.repo;
+//   const { number } = pullRequest;
+//   let { additions, deletions } = pullRequest;
+
+//   const res = await context.github.pullRequests.listFiles({ owner, repo, number });
 // }
