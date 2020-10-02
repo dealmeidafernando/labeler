@@ -1,7 +1,7 @@
 name: 'Labeler'
 description: 'Set label when approved PR'
 
-inputs: # TODO: thinking inputs
+inputs:
   repo-token:
     description: "Repo GITHUB_TOKEN"
     required: true
