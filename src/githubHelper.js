@@ -23,4 +23,13 @@ function createClient(token) {
   return octokit;
 }
 
-module.exports = { getPrNumber, getPrAuthor, createClient };
+function validateContext() {
+  const contextPullRequest = github.context.payload.pull_request;
+  if (!contextPullRequest) {
+    throw new Error (
+      `This action can only be invoked in pull_request events. Otherwise the pull request can't be inferred.`
+    );
+  }
+}
+
+module.exports = { getPrNumber, getPrAuthor, createClient, validateContext };
