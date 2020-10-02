@@ -8,7 +8,7 @@ const labelTeamOne = 'labelTeam1';
 const colorTeamOne = '7c0dc1';
 
 try {
-  await githubHelper.validateContext();
+  githubHelper.validateContext();
 
   const prNumber = githubHelper.getPrNumber();
 
