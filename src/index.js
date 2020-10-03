@@ -11,7 +11,7 @@ const colorTeamOne = '7c0dc1';
 try {
   githubHelper.validateContext();
 
-  size.size();
+  size.getCustomGeneratedFiles();
 
   const prNumber = githubHelper.getPrNumber();
 
