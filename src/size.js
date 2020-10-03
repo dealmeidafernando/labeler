@@ -60,7 +60,7 @@ function size() {
 
   // const res = await context.github.pullRequests.listFiles({owner, repo, number})
 
-  const res = await octokit.pulls.listFiles({ owner, repo, number }).catch(error => { throw error});
+  const res = octokit.pulls.listFiles({ owner, repo, number }).catch(error => { throw error});
 
   console.log('PULL =>', pullRequest);
   console.log(res);
