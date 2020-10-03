@@ -84,8 +84,10 @@ async function size() {
   const { number } = pullRequest;
   // let { additions, deletions } = pullRequest;
 
-  var res = await octokit.pulls.listFiles({ owner: owner, repo: repo, pull_number: number }).catch((e) => { console.error(e.message) });
+  // var res = await octokit.pulls.listFiles({ owner: owner, repo: repo, pull_number: number }).catch((e) => { console.error(e.message) });
 
+  const bla = await getCustomGeneratedFiles();
+  console.log('==>', bla);
   // res.data.forEach((element) => {
   //   var g =
   // });
@@ -95,4 +97,4 @@ async function size() {
   // console.log('PULL =>', pullRequest);
 }
 
-module.exports = { getCustomGeneratedFiles };
+module.exports = { size };
