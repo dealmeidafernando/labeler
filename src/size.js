@@ -52,7 +52,7 @@ function sizeLabel(lineCount) {
   }
 }
 
-async function size() {
+function size() {
   const pullRequest = context.payload.pull_request;
   const { owner: { login: owner }, name: repo } = pullRequest.base.repo;
   const { number } = pullRequest;
@@ -60,7 +60,7 @@ async function size() {
 
   // const res = await context.github.pullRequests.listFiles({owner, repo, number})
 
-  const res = await octokit.pulls.listFiles({ owner, repo, number });
+  const res = octokit.pulls.listFiles({ owner, repo, number });
   console.log('PULL =>', pullRequest);
   console.log(res);
 }
