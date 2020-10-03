@@ -1,5 +1,5 @@
 const { context } = require("@actions/github/lib/utils");
-
+const github = require('@actions/github');
 const githubHelper = require('./githubHelper');
 const getInput = require('./getInput');
 
@@ -52,49 +52,56 @@ function sizeLabel(lineCount) {
   }
 }
 
-async function getCustomGeneratedFiles () {
-  const pullRequest = context.payload.pull_request;
-  const { owner: { login: owner }, name: repo } = pullRequest.base.repo;
-  let files = []
-  const path = ".gitattributes"
+// async function getCustomGeneratedFiles () { // TODO: think this func
+//   const pullRequest = context.payload.pull_request;
+//   const { owner: { login: owner }, name: repo } = pullRequest.base.repo;
+//   let files = []
+//   const path = ".gitattributes"
 
-  let response;
-  try {
-    response = await octokit.repos.getContent({owner, repo, path});
-    console.log('RESPONSE ==>', response);
-  } catch (e) {
-    return files;
-  }
+//   let response;
+//   try {
+//     response = await octokit.repos.getContent({owner, repo, path});
+//     console.log('RESPONSE ==>', response);
+//   } catch (e) {
+//     return files;
+//   }
 
-  const buff = Buffer.from(response.data.content, 'base64');
-  const lines = buff.toString('ascii').split("\n")
+//   const buff = Buffer.from(response.data.content, 'base64');
+//   const lines = buff.toString('ascii').split("\n")
 
-  lines.forEach(function(item) {
-    if (item.includes("linguist-generated=true")) {
-      files.push(item.split(" ")[0])
-    }
-  })
-  console.log('FILES ==>', files);
-  return files;
-}
+//   lines.forEach(function(item) {
+//     if (item.includes("linguist-generated=true")) {
+//       files.push(item.split(" ")[0])
+//     }
+//   })
+//   console.log('FILES ==>', files);
+//   return files;
+// }
 
 async function size() {
   const pullRequest = context.payload.pull_request;
   const { owner: { login: owner }, name: repo } = pullRequest.base.repo;
   const { number } = pullRequest;
-  // let { additions, deletions } = pullRequest;
+  // const { labels } = context.payload.pull_request;
+  let { additions, deletions } = pullRequest;
 
   // var res = await octokit.pulls.listFiles({ owner: owner, repo: repo, pull_number: number }).catch((e) => { console.error(e.message) });
 
-  const bla = await getCustomGeneratedFiles();
-  console.log('==>', bla);
-  // res.data.forEach((element) => {
-  //   var g =
-  // });
-  // console.log("RES ==>", res);
-  // const res = await octokit.pulls.listFiles({ owner, repo, number }).catch(error => { throw error});
+  var labelToAdd = sizeLabel(additions + deletions);
 
-  // console.log('PULL =>', pullRequest);
+  // size/XS
+  pullRequest.labels.forEach((prLabel) => {
+    if(Object.values(label).includes(prLabel.name)) {
+      if (prLabel.name != labelToAdd) {
+        octokit.issues.removeLabel({
+          ...github.context.repo,
+          name: prLabel.name,
+        });
+      }
+    }
+  });
+
+  // TODO: add Label
 }
 
 module.exports = { size };
