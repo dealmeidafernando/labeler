@@ -1,12 +1,12 @@
-const { context } = require("@actions/github/lib/utils");
+const { context } = require('@actions/github/lib/utils');
 const github = require('@actions/github');
 const githubHelper = require('./githubHelper');
 const getInput = require('./getInput');
+const labelSize = require('./label');
 
 const repositoryToken = 'repo-token';
 const token = getInput.getToken(repositoryToken);
 const octokit = githubHelper.createClient(token);
-
 
 const label = {
   XS: 'size/XS',
@@ -15,7 +15,7 @@ const label = {
   L: 'size/L',
   XL: 'size/XL',
   XXL: 'size/XXL',
-}
+};
 
 const colors = {
   'size/XS': '3CBF00',
@@ -23,28 +23,28 @@ const colors = {
   'size/M': '7F7203',
   'size/L': 'A14C05',
   'size/XL': 'C32607',
-  'size/XXL': 'E50009'
-}
+  'size/XXL': 'E50009',
+};
 
 const sizes = {
   S: 10,
   M: 30,
   L: 100,
   Xl: 500,
-  Xxl: 1000
-}
+  Xxl: 1000,
+};
 
 function sizeLabel(lineCount) {
   switch (lineCount) {
-    case (lineCount < sizes.S):
+    case lineCount < sizes.S:
       return label.XS;
-    case (lineCount < sizes.M):
+    case lineCount < sizes.M:
       return label.S;
-    case (lineCount < sizes.L):
+    case lineCount < sizes.L:
       return label.M;
-    case (lineCount < sizes.Xl):
+    case lineCount < sizes.Xl:
       return label.L;
-    case (lineCount < sizes.Xxl):
+    case lineCount < sizes.Xxl:
       return label.XL;
 
     default:
@@ -80,19 +80,19 @@ function sizeLabel(lineCount) {
 
 async function size() {
   const pullRequest = context.payload.pull_request;
-  const { owner: { login: owner }, name: repo } = pullRequest.base.repo;
-  const { number } = pullRequest;
+  // const { owner: { login: owner }, name: repo } = pullRequest.base.repo;
+  // const { number } = pullRequest;
   // const { labels } = context.payload.pull_request;
-  let { additions, deletions } = pullRequest;
+  const { additions, deletions } = pullRequest;
 
   // var res = await octokit.pulls.listFiles({ owner: owner, repo: repo, pull_number: number }).catch((e) => { console.error(e.message) });
 
-  var labelToAdd = sizeLabel(additions + deletions);
+  const labelToAdd = sizeLabel(additions + deletions);
 
   // size/XS
   pullRequest.labels.forEach((prLabel) => {
-    if(Object.values(label).includes(prLabel.name)) {
-      if (prLabel.name != labelToAdd) {
+    if (Object.values(label).includes(prLabel.name)) {
+      if (prLabel.name !== labelToAdd) {
         octokit.issues.removeLabel({
           ...github.context.repo,
           name: prLabel.name,
@@ -101,7 +101,7 @@ async function size() {
     }
   });
 
-  // TODO: add Label
+  return labelSize.addSizeLabel(labelToAdd, colors[labelToAdd]);
 }
 
 module.exports = { size };

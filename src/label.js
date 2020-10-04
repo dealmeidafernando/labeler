@@ -7,23 +7,22 @@ const token = getInput.getToken(repositoryToken);
 const octokit = githubHelper.createClient(token);
 
 function createTeamLabel(label, color) {
-  let labelParams = {
+  const labelParams = {
     ...github.context.repo,
-    name: label
-  }
+    name: label,
+  };
 
   const result = octokit.issues.getLabel(labelParams);
 
   if (!result.name === label) {
-    let params = {
+    const params = {
       ...github.context.repo,
       name: label,
-      color: color,
-      description: `team ${label}`
-    }
+      color,
+      description: `team ${label}`,
+    };
 
     octokit.issues.createLabel(params);
-
   } else {
     console.log(`label to team ${label} already exists`);
   }
@@ -31,7 +30,7 @@ function createTeamLabel(label, color) {
 
 function addTeamLabel(members, prAuthor, label, prNumber) {
   if (members.includes(prAuthor)) {
-    labelsToAdd = [];
+    const labelsToAdd = [];
     labelsToAdd.push(label);
     octokit.issues
       .addLabels({
@@ -41,12 +40,42 @@ function addTeamLabel(members, prAuthor, label, prNumber) {
       })
       .then(() => {
         console.log(
-          `These labels were added automatically: ${labelsToAdd.join(", ")}.`
+          `These labels were added automatically: ${labelsToAdd.join(', ')}.`,
         );
       });
   } else {
-    console.log("No label was added.");
+    console.log('No label was added.');
   }
 }
 
-module.exports = { createTeamLabel, addTeamLabel };
+function createSizeLabel(label, color) {
+  const labelParams = {
+    ...github.context.repo,
+    name: label,
+  };
+
+  const params = {
+    ...github.context.repo,
+    name: label,
+    color,
+    description: `${label}`,
+  };
+
+  try {
+    return octokit.issues.getLabel(labelParams);
+  } catch (e) {
+    return octokit.issues.createLabel(params);
+  }
+}
+
+function addSizeLabel(label, color) {
+  const labelParams = {
+    ...github.context.issue,
+    labels: [label],
+  };
+
+  createSizeLabel(label, color);
+  octokit.issues.addLabels(labelParams);
+}
+
+module.exports = { createTeamLabel, addTeamLabel, addSizeLabel };

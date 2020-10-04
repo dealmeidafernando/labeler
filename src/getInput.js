@@ -1,6 +1,6 @@
 const core = require('@actions/core');
 
-const DLM = ";";
+const DLM = ';';
 
 function getToken(token) {
   return core.getInput(token);
@@ -14,4 +14,8 @@ function getLabelTeam(label) {
   return core.getInput(label).toLowerCase();
 }
 
-module.exports = { getToken, getTeam, getLabelTeam }
+module.exports = {
+  getToken,
+  getTeam,
+  getLabelTeam,
+};
