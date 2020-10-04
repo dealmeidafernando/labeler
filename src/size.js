@@ -78,7 +78,7 @@ function sizeLabel(lineCount) {
 //   return files;
 // }
 
-async function size() {
+function size() {
   const pullRequest = context.payload.pull_request;
   // const { owner: { login: owner }, name: repo } = pullRequest.base.repo;
   // const { number } = pullRequest;
