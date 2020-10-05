@@ -1,12 +1,12 @@
 const { context } = require('@actions/github/lib/utils');
-const github = require('@actions/github');
-const githubHelper = require('./githubHelper');
-const getInput = require('./getInput');
+// const github = require('@actions/github');
+// const githubHelper = require('./githubHelper');
+// const getInput = require('./getInput');
 const labelSize = require('./label');
 
-const repositoryToken = 'repo-token';
-const token = getInput.getToken(repositoryToken);
-const octokit = githubHelper.createClient(token);
+// const repositoryToken = 'repo-token';
+// const token = getInput.getToken(repositoryToken);
+// const octokit = githubHelper.createClient(token);
 
 const label = {
   XS: 'size/XS',
@@ -78,7 +78,7 @@ function sizeLabel(lineCount) {
 //   return files;
 // }
 
-async function size() {
+function size() {
   const pullRequest = context.payload.pull_request;
   // const { owner: { login: owner }, name: repo } = pullRequest.base.repo;
   // const { number } = pullRequest;
@@ -100,8 +100,8 @@ async function size() {
   //     }
   //   }
   // });
-
-  return labelSize.addSizeLabel(labelToAdd, colors[labelToAdd]);
+  labelSize.createSizeLabel(labelToAdd, colors[labelToAdd]);
+  labelSize.addSizeLabel(labelToAdd);
 }
 
 module.exports = { size };

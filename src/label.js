@@ -73,21 +73,22 @@ function createSizeLabel(label, color) {
   // } catch (e) {
   //   return octokit.issues.createLabel(params);
   // }
-
-  return true;
 }
 
-function addSizeLabel(label, color) {
+function addSizeLabel(label) {
   const labelParams = {
     ...github.context.issue,
     labels: [label],
   };
 
-  const res = createSizeLabel(label, color);
-
-  if (res === true) {
-    octokit.issues.addLabels(labelParams);
-  }
+  octokit.issues.addLabels(labelParams).then(() => {
+    console.log(`These labels were added automatically: ${label.join(', ')}.`);
+  });
 }
 
-module.exports = { createTeamLabel, addTeamLabel, addSizeLabel };
+module.exports = {
+  createTeamLabel,
+  addTeamLabel,
+  createSizeLabel,
+  addSizeLabel,
+};
