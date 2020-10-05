@@ -86,10 +86,8 @@ function addSizeLabel(label) {
       ...github.context.issue,
       labels: [label],
     })
-    .then(() => {
-      console.log(
-        `These labels were added automatically: ${label.join(', ')}.`,
-      );
+    .catch((e) => {
+      console.error('ADDLABELS ==>', e.message);
     });
 
   // octokit.issues.addLabels(labelParams).catch((e) => {
