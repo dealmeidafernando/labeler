@@ -1,5 +1,4 @@
-const { context } = require('@actions/github/lib/utils');
-// const github = require('@actions/github');
+const github = require('@actions/github');
 // const githubHelper = require('./githubHelper');
 // const getInput = require('./getInput');
 const labelSize = require('./label');
@@ -79,7 +78,7 @@ function sizeLabel(lineCount) {
 // }
 
 function size() {
-  const pullRequest = context.payload.pull_request;
+  const pullRequest = github.context.payload.pull_request;
   // const { owner: { login: owner }, name: repo } = pullRequest.base.repo;
   // const { number } = pullRequest;
   // const { labels } = context.payload.pull_request;
