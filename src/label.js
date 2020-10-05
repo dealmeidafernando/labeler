@@ -76,14 +76,25 @@ function createSizeLabel(label, color) {
 }
 
 function addSizeLabel(label) {
-  const labelParams = {
-    ...github.context.issue,
-    labels: [label],
-  };
+  // const labelParams = {
+  //   ...github.context.issue,
+  //   labels: [label],
+  // };
 
-  octokit.issues.addLabels(labelParams).catch((e) => {
-    console.error(e.message);
-  });
+  octokit.issues
+    .addLabels({
+      ...github.context.issue,
+      labels: [label],
+    })
+    .then(() => {
+      console.log(
+        `These labels were added automatically: ${label.join(', ')}.`,
+      );
+    });
+
+  // octokit.issues.addLabels(labelParams).catch((e) => {
+  //   console.error(e.message);
+  // });
 }
 
 module.exports = {
