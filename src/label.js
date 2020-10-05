@@ -6,6 +6,8 @@ const repositoryToken = 'repo-token';
 const token = getInput.getToken(repositoryToken);
 const octokit = githubHelper.createClient(token);
 
+const pullRequest = github.context.payload.pull_request;
+
 function createTeamLabel(label, color) {
   const labelParams = {
     ...github.context.repo,
@@ -54,25 +56,31 @@ function createSizeLabel(label, color) {
     name: label,
   };
 
-  // octokit.issues.getLabel(labelParams).catch((e) => {
-  //   console.error(e.message);
-  // });
+  const res = octokit.issues.getLabel(labelParams).catch((e) => {
+    console.error(e.message);
+  });
 
-  const params = {
-    ...github.context.repo,
-    name: label,
-    color,
-  };
+  if (!res.name === label) {
+    const params = {
+      ...github.context.repo,
+      name: label,
+      color,
+    };
+
+    octokit.issues.createLabel(params);
+  } else {
+    console.log(`label to team ${label} already exists`);
+  }
 
   // octokit.issues.createLabel(params).catch((e) => {
   //   console.error(e.message);
   // });
 
-  try {
-    return octokit.issues.getLabel(labelParams);
-  } catch (e) {
-    return octokit.issues.createLabel(params);
-  }
+  // try {
+  //   return octokit.issues.getLabel(labelParams);
+  // } catch (e) {
+  //   return octokit.issues.createLabel(params);
+  // }
 }
 
 function addSizeLabel(label) {
@@ -80,19 +88,19 @@ function addSizeLabel(label) {
   //   ...github.context.issue,
   //   labels: [label],
   // };
-
+  const labelsToAdd = [];
+  labelsToAdd.push(label);
   octokit.issues
     .addLabels({
-      ...github.context.issue,
-      labels: [label],
+      ...github.context.repo,
+      issue_number: pullRequest.number,
+      labels: labelsToAdd,
     })
-    .catch((e) => {
-      console.error('ADDLABELS ==>', e.message);
+    .then(() => {
+      console.log(
+        `These labels were added automatically: ${labelsToAdd.join(', ')}.`,
+      );
     });
-
-  // octokit.issues.addLabels(labelParams).catch((e) => {
-  //   console.error(e.message);
-  // });
 }
 
 module.exports = {
