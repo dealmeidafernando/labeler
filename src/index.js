@@ -11,8 +11,6 @@ const colorTeamOne = '7c0dc1';
 try {
   githubHelper.validateContext();
 
-  size.size();
-
   const prNumber = githubHelper.getPrNumber();
 
   const membersTeam1 = getInput.getTeam(teamOne);
@@ -21,6 +19,8 @@ try {
 
   label.createTeamLabel(labelTeam1, colorTeamOne);
   label.addTeamLabel(membersTeam1, prAuthor, labelTeam1, prNumber);
+
+  size.size();
 } catch (e) {
   core.setFailed(e.message);
 }
