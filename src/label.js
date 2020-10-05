@@ -6,8 +6,6 @@ const repositoryToken = 'repo-token';
 const token = getInput.getToken(repositoryToken);
 const octokit = githubHelper.createClient(token);
 
-const pullRequest = github.context.payload.pull_request;
-
 function createTeamLabel(label, color) {
   const labelParams = {
     ...github.context.repo,
@@ -56,31 +54,25 @@ function createSizeLabel(label, color) {
     name: label,
   };
 
-  const res = octokit.issues.getLabel(labelParams).catch((e) => {
-    console.error(e.message);
-  });
+  // octokit.issues.getLabel(labelParams).catch((e) => {
+  //   console.error(e.message);
+  // });
 
-  if (!res.name === label) {
-    const params = {
-      ...github.context.repo,
-      name: label,
-      color,
-    };
-
-    octokit.issues.createLabel(params);
-  } else {
-    console.log(`label to team ${label} already exists`);
-  }
+  const params = {
+    ...github.context.repo,
+    name: label,
+    color,
+  };
 
   // octokit.issues.createLabel(params).catch((e) => {
   //   console.error(e.message);
   // });
 
-  // try {
-  //   return octokit.issues.getLabel(labelParams);
-  // } catch (e) {
-  //   return octokit.issues.createLabel(params);
-  // }
+  try {
+    return octokit.issues.getLabel(labelParams);
+  } catch (e) {
+    return octokit.issues.createLabel(params);
+  }
 }
 
 function addSizeLabel(label) {
@@ -88,19 +80,22 @@ function addSizeLabel(label) {
   //   ...github.context.issue,
   //   labels: [label],
   // };
-  const labelsToAdd = [];
-  labelsToAdd.push(label);
+
+  const { number } = github.context.issue;
+
   octokit.issues
     .addLabels({
       ...github.context.repo,
-      issue_number: pullRequest.number,
-      labels: labelsToAdd,
+      issue_number: number,
+      labels: [label],
     })
-    .then(() => {
-      console.log(
-        `These labels were added automatically: ${labelsToAdd.join(', ')}.`,
-      );
+    .catch((e) => {
+      console.error(e.message);
     });
+
+  // octokit.issues.addLabels(labelParams).catch((e) => {
+  //   console.error(e.message);
+  // });
 }
 
 module.exports = {
