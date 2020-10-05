@@ -54,20 +54,25 @@ function createSizeLabel(label, color) {
     name: label,
   };
 
-  const params = {
-    ...github.context.repo,
-    name: label,
-    color,
-    description: `${label}`,
-  };
+  const result = octokit.issues.getLabel(labelParams);
 
-  try {
-    const result = octokit.issues.getLabel(labelParams);
-    return result;
-  } catch (e) {
-    const test = octokit.issues.createLabel(params);
-    return test;
+  if (!result.name === label) {
+    const params = {
+      ...github.context.repo,
+      name: label,
+      color,
+      description: `${label}`,
+    };
+
+    octokit.issues.createLabel(params);
+  } else {
+    console.log(`label to team ${label} already exists`);
   }
+  // try {
+  //   return octokit.issues.getLabel(labelParams);
+  // } catch (e) {
+  //   return octokit.issues.createLabel(params);
+  // }
 }
 
 function addSizeLabel(label, color) {
