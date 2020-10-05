@@ -61,7 +61,7 @@ function createSizeLabel(label, color) {
       ...github.context.repo,
       name: label,
       color,
-      description: `${label}`,
+      description: 'label size',
     };
 
     octokit.issues.createLabel(params);
