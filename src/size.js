@@ -100,8 +100,8 @@ async function size() {
       }
     }
   });
-
-  return labelSize.addSizeLabel(labelToAdd, colors[labelToAdd]);
+  const bla = await labelSize.addSizeLabel(labelToAdd, colors[labelToAdd]);
+  return bla;
 }
 
 module.exports = { size };
