@@ -78,7 +78,7 @@ function sizeLabel(lineCount) {
 //   return files;
 // }
 
-async function size() {
+function size() {
   const pullRequest = context.payload.pull_request;
   // const { owner: { login: owner }, name: repo } = pullRequest.base.repo;
   // const { number } = pullRequest;
@@ -100,8 +100,8 @@ async function size() {
       }
     }
   });
-  const bla = await labelSize.addSizeLabel(labelToAdd, colors[labelToAdd]);
-  return bla;
+
+  return labelSize.addSizeLabel(labelToAdd, colors[labelToAdd]);
 }
 
 module.exports = { size };

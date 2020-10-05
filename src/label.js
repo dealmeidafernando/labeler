@@ -48,7 +48,7 @@ function addTeamLabel(members, prAuthor, label, prNumber) {
   }
 }
 
-async function createSizeLabel(label, color) {
+function createSizeLabel(label, color) {
   const labelParams = {
     ...github.context.repo,
     name: label,
@@ -62,20 +62,22 @@ async function createSizeLabel(label, color) {
   };
 
   try {
-    return await octokit.issues.getLabel(labelParams);
+    const result = octokit.issues.getLabel(labelParams);
+    return result;
   } catch (e) {
-    return octokit.issues.createLabel(params);
+    const test = octokit.issues.createLabel(params);
+    return test;
   }
 }
 
-async function addSizeLabel(label, color) {
+function addSizeLabel(label, color) {
   const labelParams = {
     ...github.context.issue,
     labels: [label],
   };
 
-  await createSizeLabel(label, color);
-  await octokit.issues.addLabels(labelParams);
+  createSizeLabel(label, color);
+  octokit.issues.addLabels(labelParams);
 }
 
 module.exports = { createTeamLabel, addTeamLabel, addSizeLabel };
