@@ -90,16 +90,16 @@ async function size() {
   const labelToAdd = sizeLabel(additions + deletions);
 
   // size/XS
-  pullRequest.labels.forEach((prLabel) => {
-    if (Object.values(label).includes(prLabel.name)) {
-      if (prLabel.name !== labelToAdd) {
-        octokit.issues.removeLabel({
-          ...github.context.repo,
-          name: prLabel.name,
-        });
-      }
-    }
-  });
+  // pullRequest.labels.forEach((prLabel) => {
+  //   if (Object.values(label).includes(prLabel.name)) {
+  //     if (prLabel.name !== labelToAdd) {
+  //       octokit.issues.removeLabel({
+  //         ...github.context.repo,
+  //         name: prLabel.name,
+  //       });
+  //     }
+  //   }
+  // });
 
   return labelSize.addSizeLabel(labelToAdd, colors[labelToAdd]);
 }
