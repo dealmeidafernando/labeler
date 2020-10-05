@@ -54,26 +54,25 @@ function createSizeLabel(label, color) {
     name: label,
   };
 
-  octokit.issues.getLabel(labelParams).catch((e) => {
-    console.error(e.message);
-  });
+  // octokit.issues.getLabel(labelParams).catch((e) => {
+  //   console.error(e.message);
+  // });
 
   const params = {
     ...github.context.repo,
     name: label,
     color,
-    description: 'label size',
   };
 
-  octokit.issues.createLabel(params).catch((e) => {
-    console.error(e.message);
-  });
+  // octokit.issues.createLabel(params).catch((e) => {
+  //   console.error(e.message);
+  // });
 
-  // try {
-  //   return octokit.issues.getLabel(labelParams);
-  // } catch (e) {
-  //   return octokit.issues.createLabel(params);
-  // }
+  try {
+    return octokit.issues.getLabel(labelParams);
+  } catch (e) {
+    return octokit.issues.createLabel(params);
+  }
 }
 
 function addSizeLabel(label) {
