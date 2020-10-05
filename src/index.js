@@ -8,7 +8,7 @@ const teamOne = 'membersTeam1';
 const labelTeamOne = 'labelTeam1';
 const colorTeamOne = '7c0dc1';
 
-async function bla() {
+try {
   githubHelper.validateContext();
 
   const prNumber = githubHelper.getPrNumber();
@@ -20,11 +20,7 @@ async function bla() {
   label.createTeamLabel(labelTeam1, colorTeamOne);
   label.addTeamLabel(membersTeam1, prAuthor, labelTeam1, prNumber);
 
-  await size.size();
-}
-
-try {
-  bla();
+  size.size();
 } catch (e) {
   core.setFailed(e.message);
 }

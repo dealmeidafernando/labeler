@@ -48,13 +48,15 @@ function addTeamLabel(members, prAuthor, label, prNumber) {
   }
 }
 
-async function createSizeLabel(label, color) {
+function createSizeLabel(label, color) {
   const labelParams = {
     ...github.context.repo,
     name: label,
   };
 
-  const result = await octokit.issues.getLabel(labelParams);
+  const result = octokit.issues.getLabel(labelParams).catch((e) => {
+    console.error(e.message);
+  });
 
   if (result) {
     const params = {
@@ -64,7 +66,9 @@ async function createSizeLabel(label, color) {
       description: 'label size',
     };
 
-    octokit.issues.createLabel(params);
+    octokit.issues.createLabel(params).catch((e) => {
+      console.error(e.message);
+    });
   } else {
     console.log(`label ${label} already exists`);
   }
@@ -75,14 +79,14 @@ async function createSizeLabel(label, color) {
   // }
 }
 
-async function addSizeLabel(label) {
+function addSizeLabel(label) {
   const labelParams = {
     ...github.context.issue,
     labels: [label],
   };
 
-  await octokit.issues.addLabels(labelParams).then(() => {
-    console.log(`These labels were added automatically: ${label.join(', ')}.`);
+  octokit.issues.addLabels(labelParams).catch((e) => {
+    console.error(e.message);
   });
 }
 
