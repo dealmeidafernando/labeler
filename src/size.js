@@ -34,7 +34,7 @@ const sizes = {
 };
 
 function sizeLabel(lineCount) {
-  switch (lineCount) {
+  switch (lineCount < sizes.S) {
     case lineCount < sizes.S:
       return label.XS;
     case lineCount < sizes.M:
