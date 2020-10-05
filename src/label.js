@@ -56,7 +56,7 @@ function createSizeLabel(label, color) {
 
   const result = octokit.issues.getLabel(labelParams);
 
-  if (!result.name === label) {
+  if (result) {
     const params = {
       ...github.context.repo,
       name: label,
