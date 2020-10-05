@@ -77,7 +77,7 @@ function sizeLabel(lineCount) {
 //   return files;
 // }
 
-function size() {
+async function size() {
   const pullRequest = github.context.payload.pull_request;
   // const { owner: { login: owner }, name: repo } = pullRequest.base.repo;
   // const { number } = pullRequest;
@@ -99,8 +99,8 @@ function size() {
   //     }
   //   }
   // });
-  labelSize.createSizeLabel(labelToAdd, colors[labelToAdd]);
-  labelSize.addSizeLabel(labelToAdd);
+  await labelSize.createSizeLabel(labelToAdd, colors[labelToAdd]);
+  await labelSize.addSizeLabel(labelToAdd);
 }
 
 module.exports = { size };
