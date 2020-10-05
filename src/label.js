@@ -66,13 +66,15 @@ function createSizeLabel(label, color) {
 
     octokit.issues.createLabel(params);
   } else {
-    console.log(`label to team ${label} already exists`);
+    console.log(`label ${label} already exists`);
   }
   // try {
   //   return octokit.issues.getLabel(labelParams);
   // } catch (e) {
   //   return octokit.issues.createLabel(params);
   // }
+
+  return true;
 }
 
 function addSizeLabel(label, color) {
@@ -81,8 +83,11 @@ function addSizeLabel(label, color) {
     labels: [label],
   };
 
-  createSizeLabel(label, color);
-  octokit.issues.addLabels(labelParams);
+  const res = createSizeLabel(label, color);
+
+  if (res === true) {
+    octokit.issues.addLabels(labelParams);
+  }
 }
 
 module.exports = { createTeamLabel, addTeamLabel, addSizeLabel };
