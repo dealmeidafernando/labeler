@@ -33,24 +33,38 @@ const sizes = {
   Xxl: 1000,
 };
 
+// function sizeLabel(lineCount) {
+//   switch (lineCount < sizes.S) {
+//     case lineCount < sizes.S:
+//       return label.XS;
+//     case lineCount < sizes.M:
+//       return label.S;
+//     case lineCount < sizes.L:
+//       return label.M;
+//     case lineCount < sizes.Xl:
+//       return label.L;
+//     case lineCount < sizes.Xxl:
+//       return label.XL;
+
+//     default:
+//       return label.XXL;
+//   }
+// }
 function sizeLabel(lineCount) {
-  switch (lineCount < sizes.S) {
-    case lineCount < sizes.S:
-      return label.XS;
-    case lineCount < sizes.M:
-      return label.S;
-    case lineCount < sizes.L:
-      return label.M;
-    case lineCount < sizes.Xl:
-      return label.L;
-    case lineCount < sizes.Xxl:
-      return label.XL;
-
-    default:
-      return label.XXL;
+  if (lineCount < sizes.S) {
+    return label.XS;
+  } else if (lineCount < sizes.M) {
+    return label.S;
+  } else if (lineCount < sizes.L) {
+    return label.M;
+  } else if (lineCount < sizes.Xl) {
+    return label.L;
+  } else if (lineCount < sizes.Xxl) {
+    return label.XL;
   }
-}
 
+  return label.XXL;
+}
 // async function getCustomGeneratedFiles () { // TODO: think this func
 //   const pullRequest = context.payload.pull_request;
 //   const { owner: { login: owner }, name: repo } = pullRequest.base.repo;
