@@ -104,9 +104,26 @@ function size() {
   // var res = await octokit.pulls.listFiles({ owner: owner, repo: repo, pull_number: number }).catch((e) => { console.error(e.message) });
   const labelToAdd = sizeLabel(additions + deletions);
 
-  const res = octokit.pulls.listFiles({ owner, repo, pull_number: number });
+  const res = octokit.pulls
+    .listFiles({ owner, repo, pull_number: number })
+    .catch((e) => {
+      console.error(e.message);
+    });
 
   console.log('LISTFILES ==>', res);
+
+  const path = '.gitattributes';
+  const bla = octokit.repos
+    .getContent({
+      owner,
+      repo,
+      path,
+    })
+    .catch((e) => {
+      console.error(e.message);
+    });
+
+  console.log('CONTENT ==>', bla);
   // size/XS
   // pullRequest.labels.forEach((prLabel) => {
   //   if (Object.values(label).includes(prLabel.name)) {
