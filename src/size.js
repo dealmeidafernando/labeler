@@ -1,11 +1,11 @@
 const github = require('@actions/github');
-// const githubHelper = require('./githubHelper');
-// const getInput = require('./getInput');
+const githubHelper = require('./githubHelper');
+const getInput = require('./getInput');
 const labelSize = require('./label');
 
-// const repositoryToken = 'repo-token';
-// const token = getInput.getToken(repositoryToken);
-// const octokit = githubHelper.createClient(token);
+const repositoryToken = 'repo-token';
+const token = getInput.getToken(repositoryToken);
+const octokit = githubHelper.createClient(token);
 
 const label = {
   XS: 'size/XS',
@@ -93,17 +93,20 @@ function sizeLabel(lineCount) {
 
 function size() {
   const pullRequest = github.context.payload.pull_request;
-  // const { owner: { login: owner }, name: repo } = pullRequest.base.repo;
-  // const { number } = pullRequest;
+  const {
+    owner: { login: owner },
+    name: repo,
+  } = pullRequest.base.repo;
+  const { number } = pullRequest;
   // const { labels } = context.payload.pull_request;
   const { additions, deletions } = pullRequest;
 
   // var res = await octokit.pulls.listFiles({ owner: owner, repo: repo, pull_number: number }).catch((e) => { console.error(e.message) });
-  const bla = additions + deletions;
   const labelToAdd = sizeLabel(additions + deletions);
 
-  console.log(pullRequest);
-  console.log('LABEL ==>', bla);
+  const res = octokit.pulls.listFiles({ owner, repo, pull_number: number });
+
+  console.log('LISTFILES ==>', res);
   // size/XS
   // pullRequest.labels.forEach((prLabel) => {
   //   if (Object.values(label).includes(prLabel.name)) {
