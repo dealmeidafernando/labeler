@@ -88,6 +88,8 @@ function size() {
 
   const labelToAdd = sizeLabel(additions + deletions);
 
+  console.log(pullRequest);
+  console.log('LABEL ==>', labelToAdd);
   // size/XS
   // pullRequest.labels.forEach((prLabel) => {
   //   if (Object.values(label).includes(prLabel.name)) {
