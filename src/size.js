@@ -91,7 +91,7 @@ function sizeLabel(lineCount) {
 //   return files;
 // }
 
-function size() {
+async function size() {
   const pullRequest = github.context.payload.pull_request;
   const {
     owner: { login: owner },
@@ -104,7 +104,7 @@ function size() {
   // var res = await octokit.pulls.listFiles({ owner: owner, repo: repo, pull_number: number }).catch((e) => { console.error(e.message) });
   const labelToAdd = sizeLabel(additions + deletions);
 
-  const res = octokit.pulls
+  const res = await octokit.pulls
     .listFiles({ owner, repo, pull_number: number })
     .catch((e) => {
       console.error(e.message);
@@ -113,7 +113,7 @@ function size() {
   console.log('LISTFILES ==>', res);
 
   const path = '.gitattributes';
-  const bla = octokit.repos
+  const bla = await octokit.repos
     .getContent({
       owner,
       repo,
