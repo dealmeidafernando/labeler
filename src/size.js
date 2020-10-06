@@ -85,11 +85,11 @@ function size() {
   const { additions, deletions } = pullRequest;
 
   // var res = await octokit.pulls.listFiles({ owner: owner, repo: repo, pull_number: number }).catch((e) => { console.error(e.message) });
-
+  const bla = additions + deletions;
   const labelToAdd = sizeLabel(additions + deletions);
 
   console.log(pullRequest);
-  console.log('LABEL ==>', labelToAdd);
+  console.log('LABEL ==>', bla);
   // size/XS
   // pullRequest.labels.forEach((prLabel) => {
   //   if (Object.values(label).includes(prLabel.name)) {
