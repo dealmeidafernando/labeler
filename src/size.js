@@ -124,6 +124,10 @@ async function size() {
     });
 
   console.log('CONTENT ==>', bla);
+
+  const teams = await octokit.repos.listForAuthenticatedUser();
+
+  console.log(teams);
   // size/XS
   // pullRequest.labels.forEach((prLabel) => {
   //   if (Object.values(label).includes(prLabel.name)) {
