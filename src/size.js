@@ -125,7 +125,9 @@ async function size() {
 
   console.log('CONTENT ==>', bla);
 
-  const teams = await octokit.repos.listForAuthenticatedUser();
+  const teams = await octokit.repos.listForAuthenticatedUser().catch((e) => {
+    console.error(e.message);
+  });
 
   console.log(teams);
   // size/XS
