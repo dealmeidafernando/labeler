@@ -125,11 +125,19 @@ async function size() {
 
   console.log('CONTENT ==>', bla);
 
-  const teams = await octokit.repos.listForAuthenticatedUser().catch((e) => {
-    console.error(e.message);
-  });
+  const user = octokit.users
+    .getByUsername({ username: 'dealmeidafernando' })
+    .catch((e) => {
+      console.error(e.message);
+    });
 
-  console.log(teams);
+  console.log('USER ==>', user);
+
+  // const teams = await octokit.repos.listForAuthenticatedUser().catch((e) => {
+  //   console.error(e.message);
+  // });
+
+  // console.log(teams);
   // size/XS
   // pullRequest.labels.forEach((prLabel) => {
   //   if (Object.values(label).includes(prLabel.name)) {
