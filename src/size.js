@@ -125,7 +125,7 @@ async function size() {
 
   console.log('CONTENT ==>', bla);
 
-  const user = octokit.users
+  const user = await octokit.users
     .getByUsername({ username: 'dealmeidafernando' })
     .catch((e) => {
       console.error(e.message);
