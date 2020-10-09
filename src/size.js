@@ -125,11 +125,9 @@ async function size() {
 
   console.log('CONTENT ==>', bla);
 
-  const user = await octokit.users
-    .getByUsername({ username: 'dealmeidafernando' })
-    .catch((e) => {
-      console.error(e.message);
-    });
+  const user = await octokit.repos.listTeams({ owner, repo }).catch((e) => {
+    console.error(e.message);
+  });
 
   console.log('USER ==>', user);
 
