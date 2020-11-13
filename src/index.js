@@ -5,7 +5,7 @@ const label = require('./label');
 
 const teamOne = 'teamOneMembers';
 const labelTeamOne = 'teamOneLabel';
-const colorTeamOne = 'FFF70C';
+const colorTeamOne = '7c0dc1';
 
 // const teamTwo = 'teamTwoMembers';
 // const labelTeamTwo = 'teamTwoLabel';
