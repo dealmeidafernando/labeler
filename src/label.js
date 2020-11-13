@@ -12,9 +12,7 @@ function createTeamLabel(label, color) {
     name: label,
   };
 
-  const result = octokit.issues.getLabel(labelParams).catch((e) => {
-    console.log('CREATE TEAM LABEL', e.message);
-  });
+  const result = octokit.issues.getLabel(labelParams);
 
   if (result.name !== label) {
     const params = {
@@ -29,25 +27,18 @@ function createTeamLabel(label, color) {
 
 function addTeamLabel(members, prAuthor, label, prNumber) {
   if (members.includes(prAuthor)) {
-    const labelsToAdd = [];
-    labelsToAdd.push(label);
     octokit.issues
       .addLabels({
         ...github.context.repo,
         issue_number: prNumber,
-        labels: labelsToAdd,
+        labels: [label],
       })
-      .catch((e) => {
-        console.log(e.message);
+      .then(() => {
+        console.log(`These labels were added automatically: ${label}`);
       });
-      // .then(() => {
-      //   console.log(
-      //     `These labels were added automatically: ${labelsToAdd.join(', ')}.`,
-      //   );
-      // });
-  } // else {
-  //   console.log('No label was added.');
-  // }
+  } else {
+    console.log('No label was added.');
+  }
 }
 
 module.exports = {
