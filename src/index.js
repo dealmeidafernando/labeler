@@ -9,7 +9,7 @@ const colorTeamOne = 'FFD200';
 
 const teamTwo = 'teamTwoMembers';
 const labelTeamTwo = 'teamTwoLabel';
-const colorTeamTwo = '7c0dc1';
+const colorTeamTwo = '5b0589';
 
 try {
   githubHelper.validateContext();
@@ -25,7 +25,6 @@ try {
 
   const teamTwoMembers = getInput.getTeam(teamTwo);
   const teamTwoLabel = getInput.getLabelTeam(labelTeamTwo);
-  // const prAuthor = githubHelper.getPrAuthor();
 
   label.createTeamLabel(teamTwoLabel, colorTeamTwo);
   label.addTeamLabel(teamTwoMembers, prAuthor, teamTwoLabel, prNumber);
