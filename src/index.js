@@ -7,18 +7,18 @@ const teamOne = 'teamOneMembers';
 const labelTeamOne = 'teamOneLabel';
 const colorTeamOne = 'FFD200';
 
-const teamTwo = 'teamOneMembers';
-const labelTeamTwo = 'teamOneLabel';
+const teamTwo = 'teamTwoMembers';
+const labelTeamTwo = 'teamTwoLabel';
 const colorTeamTwo = '7c0dc1';
 
 try {
   githubHelper.validateContext();
 
   const prNumber = githubHelper.getPrNumber();
+  const prAuthor = githubHelper.getPrAuthor();
 
   const teamOneMembers = getInput.getTeam(teamOne);
   const teamOneLabel = getInput.getLabelTeam(labelTeamOne);
-  const prAuthor = githubHelper.getPrAuthor();
 
   label.createTeamLabel(teamOneLabel, colorTeamOne);
   label.addTeamLabel(teamOneMembers, prAuthor, teamOneLabel, prNumber);
