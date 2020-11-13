@@ -3,13 +3,21 @@ const githubHelper = require('./githubHelper');
 const getInput = require('./getInput');
 const label = require('./label');
 
-const teamOne = 'teamOneMembers';
-const labelTeamOne = 'teamOneLabel';
-const colorTeamOne = 'ffce00';
+const teamsArray = [
+  {
+    members: 'teamOneMembers',
+    labelName: 'teamOneLabel',
+    labelColor: 'ffce00',
+  },
+  {
+    members: 'teamTwoMembers',
+    labelName: 'teamTwoLabel',
+    labelColor: '5b0589',
+  },
+];
 
-const teamTwo = 'teamTwoMembers';
-const labelTeamTwo = 'teamTwoLabel';
-const colorTeamTwo = '5b0589';
+let members;
+let teamLabel;
 
 try {
   githubHelper.validateContext();
@@ -17,17 +25,12 @@ try {
   const prNumber = githubHelper.getPrNumber();
   const prAuthor = githubHelper.getPrAuthor();
 
-  const teamOneMembers = getInput.getTeam(teamOne);
-  const teamOneLabel = getInput.getLabelTeam(labelTeamOne);
-
-  label.createTeamLabel(teamOneLabel, colorTeamOne);
-  label.addTeamLabel(teamOneMembers, prAuthor, teamOneLabel, prNumber);
-
-  const teamTwoMembers = getInput.getTeam(teamTwo);
-  const teamTwoLabel = getInput.getLabelTeam(labelTeamTwo);
-
-  label.createTeamLabel(teamTwoLabel, colorTeamTwo);
-  label.addTeamLabel(teamTwoMembers, prAuthor, teamTwoLabel, prNumber);
+  teamsArray.forEach((team) => {
+    members = getInput.getTeam(team.members);
+    teamLabel = getInput.getLabelTeam(team.labelName);
+    label.createTeamLabel(teamLabel, team.labelColor);
+    label.addTeamLabel(members, prAuthor, teamLabel, prNumber);
+  });
 } catch (e) {
   core.setFailed(e.message);
 }
