@@ -5,11 +5,11 @@ const label = require('./label');
 
 const teamOne = 'teamOneMembers';
 const labelTeamOne = 'teamOneLabel';
-const colorTeamOne = 'FFD200';
+const colorTeamOne = 'FFF70C';
 
-const teamTwo = 'teamTwoMembers';
-const labelTeamTwo = 'teamTwoLabel';
-const colorTeamTwo = '5b0589';
+// const teamTwo = 'teamTwoMembers';
+// const labelTeamTwo = 'teamTwoLabel';
+// const colorTeamTwo = '5b0589';
 
 try {
   githubHelper.validateContext();
@@ -23,11 +23,11 @@ try {
   label.createTeamLabel(teamOneLabel, colorTeamOne);
   label.addTeamLabel(teamOneMembers, prAuthor, teamOneLabel, prNumber);
 
-  const teamTwoMembers = getInput.getTeam(teamTwo);
-  const teamTwoLabel = getInput.getLabelTeam(labelTeamTwo);
+  // const teamTwoMembers = getInput.getTeam(teamTwo);
+  // const teamTwoLabel = getInput.getLabelTeam(labelTeamTwo);
 
-  label.createTeamLabel(teamTwoLabel, colorTeamTwo);
-  label.addTeamLabel(teamTwoMembers, prAuthor, teamTwoLabel, prNumber);
+  // label.createTeamLabel(teamTwoLabel, colorTeamTwo);
+  // label.addTeamLabel(teamTwoMembers, prAuthor, teamTwoLabel, prNumber);
 } catch (e) {
   core.setFailed(e.message);
 }
