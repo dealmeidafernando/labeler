@@ -48,59 +48,7 @@ function addTeamLabel(members, prAuthor, label, prNumber) {
   }
 }
 
-function createSizeLabel(label, color) {
-  const labelParams = {
-    ...github.context.repo,
-    name: label,
-  };
-
-  // octokit.issues.getLabel(labelParams).catch((e) => {
-  //   console.error(e.message);
-  // });
-
-  const params = {
-    ...github.context.repo,
-    name: label,
-    color,
-  };
-
-  // octokit.issues.createLabel(params).catch((e) => {
-  //   console.error(e.message);
-  // });
-
-  try {
-    return octokit.issues.getLabel(labelParams);
-  } catch (e) {
-    return octokit.issues.createLabel(params);
-  }
-}
-
-function addSizeLabel(label) {
-  // const labelParams = {
-  //   ...github.context.issue,
-  //   labels: [label],
-  // };
-
-  const { number } = github.context.issue;
-
-  octokit.issues
-    .addLabels({
-      ...github.context.repo,
-      issue_number: number,
-      labels: [label],
-    })
-    .catch((e) => {
-      console.error(e.message);
-    });
-
-  // octokit.issues.addLabels(labelParams).catch((e) => {
-  //   console.error(e.message);
-  // });
-}
-
 module.exports = {
   createTeamLabel,
   addTeamLabel,
-  createSizeLabel,
-  addSizeLabel,
 };

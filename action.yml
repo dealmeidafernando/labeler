@@ -5,12 +5,18 @@ inputs:
   repo-token:
     description: "Repo GITHUB_TOKEN"
     required: true
-  membersTeam1:
+  teamOneMembers:
     description: "Names of first team"
     required: true
-  labelTeam1:
-    description: "Names of first team"
+  teamOneLabel:
+    description: "Names label of first team"
     required: true
+  teamTwoMembers:
+    description: "Names of second team"
+    required: false
+  teamTwoLabel:
+    description: "Names label of second team"
+    required: false
 
 branding:
   icon: "check"
