@@ -15,7 +15,6 @@ function createTeamLabel(label, color) {
   const result = octokit.issues.getLabel(labelParams);
 
   if (result.name !== label) {
-    console.log(result.name);
     const params = {
       ...github.context.repo,
       name: label,
@@ -23,8 +22,6 @@ function createTeamLabel(label, color) {
     };
 
     octokit.issues.createLabel(params);
-  } else {
-    console.log(`label to team ${label} already exists`);
   }
 }
 
