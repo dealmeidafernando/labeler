@@ -13,7 +13,7 @@ function createClient(token) {
 }
 
 async function validateContext() {
-  const contextPullRequest = github.context.payload.pull_request;
+  const contextPullRequest = await github.context.payload.pull_request;
   if (!contextPullRequest) {
     throw new Error(
       `This action can only be invoked in pull_request events. Otherwise the pull request can't be inferred`,
