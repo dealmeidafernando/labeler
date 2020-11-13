@@ -36,6 +36,7 @@ function addTeamLabel(members, prAuthor, label, prNumber) {
       .then(() => {
         console.log(`These labels were added automatically: ${label}`);
       });
+  }
 }
 
 module.exports = {
