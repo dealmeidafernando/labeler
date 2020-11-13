@@ -12,7 +12,9 @@ function createTeamLabel(label, color) {
     name: label,
   };
 
-  const result = octokit.issues.getLabel(labelParams);
+  const result = octokit.issues.getLabel(labelParams).catch((e) => {
+    console.log('CREATE TEAM LABEL', e.message);
+  });
 
   if (result.name !== label) {
     const params = {
@@ -35,14 +37,17 @@ function addTeamLabel(members, prAuthor, label, prNumber) {
         issue_number: prNumber,
         labels: labelsToAdd,
       })
-      .then(() => {
-        console.log(
-          `These labels were added automatically: ${labelsToAdd.join(', ')}.`,
-        );
+      .catch((e) => {
+        console.log(e.message);
       });
-  } else {
-    console.log('No label was added.');
-  }
+      // .then(() => {
+      //   console.log(
+      //     `These labels were added automatically: ${labelsToAdd.join(', ')}.`,
+      //   );
+      // });
+  } // else {
+  //   console.log('No label was added.');
+  // }
 }
 
 module.exports = {
