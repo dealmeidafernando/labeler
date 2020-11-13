@@ -14,7 +14,7 @@ function createTeamLabel(label, color) {
 
   const result = octokit.issues.getLabel(labelParams);
 
-  if (!result.name === label) {
+  if (result.name !== label) {
     const params = {
       ...github.context.repo,
       name: label,
