@@ -27,9 +27,11 @@ try {
 
   teamsArray.forEach((team) => {
     members = getInput.getTeam(team.members);
-    teamLabel = getInput.getLabelTeam(team.labelName);
-    label.createTeamLabel(teamLabel, team.labelColor);
-    label.addTeamLabel(members, prAuthor, teamLabel, prNumber);
+    if (members.includes(prAuthor)) {
+      teamLabel = getInput.getLabelTeam(team.labelName);
+      label.createTeamLabel(teamLabel, team.labelColor);
+      label.addTeamLabel(members, prAuthor, teamLabel, prNumber);
+    }
   });
 } catch (e) {
   core.setFailed(e.message);
