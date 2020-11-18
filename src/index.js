@@ -32,5 +32,5 @@ try {
     label.addTeamLabel(members, prAuthor, teamLabel, prNumber, team.labelColor);
   });
 } catch (e) {
-  core.setFailed(e.message);
+  core.setFailed(e.message, 'core');
 }
