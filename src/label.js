@@ -16,13 +16,13 @@ function createTeamLabel(label, color) {
     console.error(e.message);
   });
 
-  if (result.name !== label) {
+  if (!result.name === label) {
     const params = {
       ...github.context.repo,
       name: label,
       color,
     };
-
+    // deu not found
     octokit.issues.createLabel(params).catch((e) => {
       console.error(e.message);
     });
