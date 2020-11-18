@@ -12,7 +12,9 @@ function createTeamLabel(label, color) {
     name: label,
   };
 
-  const result = octokit.issues.getLabel(labelParams);
+  const result = octokit.issues.getLabel(labelParams).then(() => {
+    console.log('getLabel');
+  });
 
   if (result.name !== label) {
     const params = {
@@ -21,12 +23,15 @@ function createTeamLabel(label, color) {
       color,
     };
 
-    octokit.issues.createLabel(params);
+    octokit.issues.createLabel(params).then(() => {
+      console.log('createLabel');
+    });
   }
 }
 
-function addTeamLabel(members, prAuthor, label, prNumber) {
+function addTeamLabel(members, prAuthor, label, prNumber, color) {
   if (members.includes(prAuthor)) {
+    createTeamLabel(label, color);
     octokit.issues
       .addLabels({
         ...github.context.repo,
