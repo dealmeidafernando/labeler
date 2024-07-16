@@ -2,7 +2,7 @@
 
 - Create a `.yml` file under `.github/workflow/your-file.yml`
 
-Example
+Example:
 
 ```yml
 name: Add label on pull request
