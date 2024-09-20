@@ -19,6 +19,8 @@ async function run() {
 
     await label.createTeamLabel(labelTeam1, colorTeamOne);
     await label.addTeamLabel(membersTeam1, prAuthor, labelTeam1, prNumber);
+    await label.addAssignees([prAuthor], prNumber);
+    // TODO: add reviewers to PR
   } catch (e) {
     core.setFailed(e.message);
   }
