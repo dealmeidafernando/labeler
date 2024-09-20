@@ -66,8 +66,34 @@ async function addTeamLabel(members, prAuthor, label, prNumber) {
       console.error(`Failed to add labels: ${error.message}`);
     }
   } else {
-    console.log(`PR author ${prAuthor} is not a member of the team.`);
+    console.log(`PR author ${prAuthor} is not a member of the team. Please, add on the team.`);
   }
 }
 
-module.exports = { createTeamLabel, addTeamLabel };
+async function addReviewers(reviewers, prNumber) {
+  try {
+    await octokit.pulls.requestReviewers({
+      ...github.context.repo,
+      pull_number: prNumber,
+      reviewers: reviewers,
+    });
+    console.log(`These reviewers were added automatically: ${reviewers.join(", ")}.`);
+  } catch (error) {
+    console.error(`Failed to add reviewers: ${error.message}`);
+  }
+}
+
+async function addAssignees(assignees, prNumber) {
+  try {
+    await octokit.issues.addAssignees({
+      ...github.context.repo,
+      issue_number: prNumber,
+      assignees: assignees,
+    });
+    console.log(`These assignees were added automatically: ${assignees.join(", ")}.`);
+  } catch (error) {
+    console.error(`Failed to add assignees: ${error.message}`);
+  }
+}
+
+module.exports = { createTeamLabel, addTeamLabel, addReviewers, addAssignees };
