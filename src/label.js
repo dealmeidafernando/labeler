@@ -63,7 +63,7 @@ async function addTeamLabel(members, prAuthor, label, prNumber) {
       });
       console.log(`These labels were added automatically: ${labelsToAdd.join(", ")}.`);
     } catch (error) {
-      console.error(`Failed to add labels: ${error.message}`);
+      console.error(`Failed to add labels of team: ${error.message}`);
     }
   } else {
     console.log(`PR author ${prAuthor} is not a member of the team. Please, add on the team.`);
@@ -100,31 +100,38 @@ async function addConventionalBranchLabel(branchName, prNumber) {
   const prefix = branchName.split('/')[0];
   const color = '0000FF'; // Blue color in hex
 
+  const labelParams = {
+    ...github.context.repo,
+    name: prefix
+  };
+
   try {
-    const labelParams = {
-      ...github.context.repo,
-      name: prefix
-    };
+    console.log(`Checking if label exists with params: ${JSON.stringify(labelParams)}`);
+    await octokit.issues.getLabel(labelParams);
+    console.log(`Label ${prefix} already exists.`);
+  } catch (error) {
+    if (error.status === 404) {
+      const createLabelParams = {
+        ...github.context.repo,
+        name: prefix,
+        color,
+        description: `Label for ${prefix}`
+      };
 
-    try {
-      await octokit.issues.getLabel(labelParams);
-      console.log(`Label ${prefix} already exists.`);
-    } catch (error) {
-      if (error.status === 404) {
-        const createLabelParams = {
-          ...github.context.repo,
-          name: prefix,
-          color,
-          description: `Label for ${prefix}`
-        };
-
+      try {
         await octokit.issues.createLabel(createLabelParams);
         console.log(`Label ${prefix} created successfully.`);
-      } else {
-        throw error;
+      } catch (createError) {
+        console.error(`Failed to create label ${prefix}: ${createError.message}`);
+        return;
       }
+    } else {
+      console.error(`Failed to check if label ${prefix} exists: ${error.message}`);
+      return;
     }
+  }
 
+  try {
     await octokit.issues.addLabels({
       ...github.context.repo,
       issue_number: prNumber,
@@ -132,7 +139,7 @@ async function addConventionalBranchLabel(branchName, prNumber) {
     });
     console.log(`The label was added automatically: ${prefix}.`);
   } catch (error) {
-    console.error(`Failed to add labels: ${error.message}`);
+    console.error(`Failed to add labels conventional: ${error.message}`);
   }
 }
 
