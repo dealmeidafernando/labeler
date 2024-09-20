@@ -16,8 +16,8 @@ try {
   const labelTeam1 = getInput.getLabelTeam(labelTeamOne);
   const prAuthor = githubHelper.getPrAuthor();
 
-  label.createTeamLabel(labelTeam1, colorTeamOne);
-  label.addTeamLabel(membersTeam1, prAuthor, labelTeam1, prNumber);
+  await label.createTeamLabel(labelTeam1, colorTeamOne);
+  await label.addTeamLabel(membersTeam1, prAuthor, labelTeam1, prNumber);
 } catch (e) {
   core.setFailed(e.message);
 }
