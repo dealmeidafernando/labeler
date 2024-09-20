@@ -83,17 +83,32 @@ async function addReviewers(reviewers, prNumber) {
   }
 }
 
-async function addAssignees(assignees, prNumber) {
+async function addAssignee(assignee, prNumber) {
   try {
     await octokit.issues.addAssignees({
       ...github.context.repo,
       issue_number: prNumber,
-      assignees: assignees,
+      assignees: [assignee],
     });
-    console.log(`These assignees were added automatically: ${assignees.join(", ")}.`);
+    console.log(`The assignee were added automatically: ${assignee}.`);
   } catch (error) {
     console.error(`Failed to add assignees: ${error.message}`);
   }
 }
 
-module.exports = { createTeamLabel, addTeamLabel, addReviewers, addAssignees };
+async function addConventionalBranchLabel(branchName, prNumber) {
+  const prefix = branchName.split('/')[0];
+
+  try {
+    await octokit.issues.addLabels({
+      ...github.context.repo,
+      issue_number: prNumber,
+      labels: [prefix],
+    });
+    console.log(`The label were added automatically: ${prefix}.`);
+  } catch (error) {
+    console.error(`Failed to add labels: ${error.message}`);
+  }
+}
+
+module.exports = { createTeamLabel, addTeamLabel, addReviewers, addAssignee, addConventionalBranchLabel };

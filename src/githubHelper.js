@@ -32,4 +32,9 @@ function validateContext() {
   }
 }
 
-module.exports = { getPrNumber, getPrAuthor, createClient, validateContext };
+function getBranchName() {
+  const branchName = github.context.payload.pull_request.head.ref;
+  return branchName;
+}
+
+module.exports = { getPrNumber, getPrAuthor, createClient, validateContext, getBranchName };

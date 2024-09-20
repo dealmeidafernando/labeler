@@ -16,10 +16,12 @@ async function run() {
     const membersTeam1 = getInput.getTeam(teamOne);
     const labelTeam1 = getInput.getLabelTeam(labelTeamOne);
     const prAuthor = githubHelper.getPrAuthor();
+    const branchName = githubHelper.getBranchName();
 
     await label.createTeamLabel(labelTeam1, colorTeamOne);
     await label.addTeamLabel(membersTeam1, prAuthor, labelTeam1, prNumber);
-    await label.addAssignees([prAuthor], prNumber);
+    await label.addAssignee(prAuthor, prNumber);
+    await label.addConventionalBranchLabel(branchName, prNumber);
     // TODO: add reviewers to PR
   } catch (e) {
     core.setFailed(e.message);
