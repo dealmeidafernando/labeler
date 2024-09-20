@@ -98,14 +98,39 @@ async function addAssignee(assignee, prNumber) {
 
 async function addConventionalBranchLabel(branchName, prNumber) {
   const prefix = branchName.split('/')[0];
+  const color = '0000FF'; // Blue color in hex
 
   try {
+    const labelParams = {
+      ...github.context.repo,
+      name: prefix
+    };
+
+    try {
+      await octokit.issues.getLabel(labelParams);
+      console.log(`Label ${prefix} already exists.`);
+    } catch (error) {
+      if (error.status === 404) {
+        const createLabelParams = {
+          ...github.context.repo,
+          name: prefix,
+          color,
+          description: `Label for ${prefix}`
+        };
+
+        await octokit.issues.createLabel(createLabelParams);
+        console.log(`Label ${prefix} created successfully.`);
+      } else {
+        throw error;
+      }
+    }
+
     await octokit.issues.addLabels({
       ...github.context.repo,
       issue_number: prNumber,
       labels: [prefix],
     });
-    console.log(`The label were added automatically: ${prefix}.`);
+    console.log(`The label was added automatically: ${prefix}.`);
   } catch (error) {
     console.error(`Failed to add labels: ${error.message}`);
   }
